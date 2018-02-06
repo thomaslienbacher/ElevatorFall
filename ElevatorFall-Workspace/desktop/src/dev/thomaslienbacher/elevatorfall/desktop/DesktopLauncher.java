@@ -26,6 +26,8 @@ public class DesktopLauncher {
 		config.foregroundFPS = 60;
 		config.backgroundFPS = 60;
 
+		config.forceExit = false;
+
 		new LwjglApplication(new Game(), config);
 	}
 }

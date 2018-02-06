@@ -9,6 +9,10 @@ Android 5.0 | API Level 21
 LibGDX Platform:
 Android 7.1.1 | API Level 25
 
+Android Manifest:
+minSdkVersion = "21"
+targetSdkVersion = "25"
+
 LibGDX Projekt:
 Generation:	Desktop, Android including IDEA Project Files
 Extensions: Box2D, Tools, Freetype
