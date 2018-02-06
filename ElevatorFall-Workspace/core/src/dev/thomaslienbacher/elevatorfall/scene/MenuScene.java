@@ -54,7 +54,7 @@ public class MenuScene extends Scene {
 	
 	@Override
 	public void renderGUI(SpriteBatch batch){
-		Fonts.getMorris(105).render(batch, Game.TITLE, Game.WIDTH / 2 - Utils.calculateStringWidth(Fonts.getMorris(150), Game.TITLE) / 2,
+		Fonts.getMorris(105).render(batch, Game.TITLE, Game.WIDTH / 2 - Utils.calculateStringWidth(Fonts.getMorris(105), Game.TITLE) / 2,
 				Game.HEIGHT - 60, Color.BLACK);
 		playButton.render(batch);
 	}
