@@ -1,0 +1,32 @@
+Accounts:
+	Github
+	Trello
+	
+
+
+Ziel Platform:
+Android 5.0 | API Level 21
+LibGDX Platform:
+Android 7.1.1 | API Level 25
+
+LibGDX Projekt:
+Generation:	Desktop, Android including IDEA Project Files
+Extensions: Box2D, Tools, Freetype
+
+Notizen:
+
+Putting Project into Android Studio:
+Just import project, don't open it.
+http://www.programmingmoney.com/setup-libgdx-android-studio/
+
+Build script:
+Add google()
+
+Bei der Android Studio Installation installiert:
+- Git zur VCS
+- Intel HAXM //Intel Virtualisierungs Beschleuniger
+- Android SDK Platform 21 (platforms;android-21)
+- Sources for Android 21 (sources;android-21)
+- Google USB Driver (extras;google;usb_driver)
+
+
