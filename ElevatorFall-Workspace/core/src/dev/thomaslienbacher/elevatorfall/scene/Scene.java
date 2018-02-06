@@ -29,7 +29,7 @@ public abstract class Scene implements InputProcessor{
 	
 	public abstract void dispose();
 	
-	public void switchTo(){
+	public void switchTo() {
 		Game.setGameState(this.state);
 		Gdx.input.setInputProcessor(this);
 	}

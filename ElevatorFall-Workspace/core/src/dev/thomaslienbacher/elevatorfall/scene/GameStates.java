@@ -7,5 +7,5 @@ package dev.thomaslienbacher.elevatorfall.scene;
  * @author Thomas Lienbacher
  */
 public enum GameStates {
-	STARTUP, MENU, GAME, LOADING
+	STARTUP, MENU, GAME
 }

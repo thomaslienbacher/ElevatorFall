@@ -32,7 +32,6 @@ public class MenuScene extends Scene {
 	public void loadAssets(AssetManager assetManager) {
 		assetManager.load(Data.MENU_BUTTON_DOWN, Texture.class);
 		assetManager.load(Data.MENU_BUTTON_UP, Texture.class);
-		assetManager.load(Data.ICON_32, Texture.class);
 	}
 
 	@Override

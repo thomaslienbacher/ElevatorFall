@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+
 import dev.thomaslienbacher.elevatorfall.assets.Fonts;
 import dev.thomaslienbacher.elevatorfall.assets.Data;
 import dev.thomaslienbacher.elevatorfall.scene.*;
@@ -31,6 +33,8 @@ public class Game extends ApplicationAdapter {
 	public static final String TITLE = "Elevator Fall";
 
 	private static SpriteBatch batch;
+	private static StretchViewport viewport;
+	private static StretchViewport guiViewport;
 	private static OrthographicCamera cam;
 	private static OrthographicCamera guiCam;
 	private static GameStates gameState = GameStates.STARTUP;
@@ -41,39 +45,28 @@ public class Game extends ApplicationAdapter {
 	private static StartupScene startupScene;
 	private static MenuScene menuScene;
 	private static GameScene gameScene;
-	private static LoadingScene loadingScene;
-
-	//cursors
-	private static Cursor pointer;
 
 	//debug
-	public final static boolean DEBUG = false;
+	public final static boolean DEBUG = true;
 	private static ShapeRenderer shapeRenderer;
 
 	@Override
 	public void create () {
 		assetManager = new AssetManager();
 		
-		//cursors
-		Pixmap pointerPixmap = new Pixmap(Gdx.files.internal(Data.POINTER_SPRITE));
-		pointer = Gdx.graphics.newCursor(pointerPixmap, 1, 1);
-		pointerPixmap.dispose();
-		
-		Gdx.graphics.setCursor(pointer);
-		
-		//cam
+		//cam and viewport
 		cam = new OrthographicCamera();
-		cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		cam.setToOrtho(false, WIDTH, HEIGHT);
+		viewport = new StretchViewport(WIDTH, HEIGHT, cam);
 		
 		guiCam = new OrthographicCamera();
-		guiCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		guiCam.setToOrtho(false, WIDTH, HEIGHT);
+		guiViewport = new StretchViewport(WIDTH, HEIGHT, guiCam);
 		
 		//resize
 		if(Gdx.app.getType() == Application.ApplicationType.Desktop) {
 			float d = 0.85f;
-			float height = Gdx.graphics.getDisplayMode().height * d;
-			float width = height * (1 / ASPECT_RATIO);
-			Gdx.graphics.setWindowedMode((int) height, (int) width);
+			Gdx.graphics.setWindowedMode((int) (Gdx.graphics.getDisplayMode().height * d * ASPECT_RATIO), (int) (Gdx.graphics.getDisplayMode().height * d));
 		}
 
 		//batch
@@ -122,14 +115,6 @@ public class Game extends ApplicationAdapter {
 			batch.setProjectionMatrix(cam.combined);
 		}
 
-		if(gameState == GameStates.LOADING){
-			loadingScene.render(batch);
-
-			batch.setProjectionMatrix(guiCam.combined);
-			loadingScene.renderGUI(batch);
-			batch.setProjectionMatrix(cam.combined);
-		}
-
 		batch.end();
 
 		//debug
@@ -144,11 +129,11 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void resize(int width, int height) {
-		super.resize(width, height);
+		viewport.update(width, height);
+		guiViewport.update(width, height);
 	}
 
 	public void update(float delta){
-		Gdx.graphics.setTitle(TITLE + "   -   " + String.format("%.2f FPS", 1.0f / delta));
 		if(delta > 0.2f) delta = 0.2f;
 
 		Mouse.update(cam);
@@ -157,13 +142,11 @@ public class Game extends ApplicationAdapter {
 			//scenes
 			menuScene = new MenuScene(GameStates.MENU);
 			gameScene = new GameScene(GameStates.GAME);
-			loadingScene = new LoadingScene(GameStates.LOADING);
 
 			//load all assets
 			Fonts.loadFonts();
 			menuScene.loadAssets(assetManager);
 			gameScene.loadAssets(assetManager);
-			loadingScene.loadAssets(assetManager);
 			
 			firstFrame = false;
 		}
@@ -178,20 +161,17 @@ public class Game extends ApplicationAdapter {
 
 				menuScene.create(assetManager);
 				gameScene.create(assetManager);
-				loadingScene.create(assetManager);
 			}
 		}
 		
 		if(gameState == GameStates.MENU) menuScene.update(delta);
 		if(gameState == GameStates.GAME) gameScene.update(delta);
-		if(gameState == GameStates.LOADING) loadingScene.update(delta);
 	}
 
 	@Override
 	public void dispose () {
 		menuScene.dispose();
 		gameScene.dispose();
-		loadingScene.dispose();
 
 		batch.dispose();
 		Fonts.dispose();
@@ -240,19 +220,15 @@ public class Game extends ApplicationAdapter {
 		return gameScene;
 	}
 
-	public static LoadingScene getLoadingScene() {
-		return loadingScene;
-	}
-
-	public static Cursor getPointer() {
-		return pointer;
-	}
-
 	public static void setGameState(GameStates gameState) {
 		Game.gameState = gameState;
 	}
 
-	public static void setPointer(Cursor pointer) {
-		Game.pointer = pointer;
+	public static StretchViewport getViewport() {
+		return viewport;
+	}
+
+	public static StretchViewport getGuiViewport() {
+		return guiViewport;
 	}
 }
