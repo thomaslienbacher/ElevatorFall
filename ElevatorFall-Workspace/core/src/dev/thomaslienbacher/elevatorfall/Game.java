@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import dev.thomaslienbacher.elevatorfall.assets.Fonts;
 import dev.thomaslienbacher.elevatorfall.assets.Data;
 import dev.thomaslienbacher.elevatorfall.scene.*;
+import dev.thomaslienbacher.elevatorfall.utils.Logger;
 import dev.thomaslienbacher.elevatorfall.utils.Mouse;
 
 
@@ -69,9 +70,10 @@ public class Game extends ApplicationAdapter {
 		
 		//resize
 		if(Gdx.app.getType() == Application.ApplicationType.Desktop) {
-			float d = 0.80f;
-			Gdx.graphics.setWindowedMode((int) (Gdx.graphics.getDisplayMode().height * d),
-					(int) (Gdx.graphics.getDisplayMode().height * d));
+			float d = 0.85f;
+			float height = Gdx.graphics.getDisplayMode().height * d;
+			float width = height * (1 / ASPECT_RATIO);
+			Gdx.graphics.setWindowedMode((int) height, (int) width);
 		}
 
 		//batch
