@@ -17,7 +17,7 @@ public class Data {
     public static final float FRICTION_STATIC = 0.3f;
 
     //misc
-    public static final String TLS_LOGO = "tls_logo.png";
+    public static final String DEV_LOGO = "tls_logo.png";
     public static final String ICON_16 = "icons/icon16.png";
     public static final String ICON_32 = "icons/icon32.png";
 

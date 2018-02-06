@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class Fonts {
 
     private static final int SIZE_INCREMENT = 15;
-    private static final int AMOUNT = 11;
+    private static final int AMOUNT = 8;
 
     public static class FontNotFoundException extends Exception {
         public FontNotFoundException() {}

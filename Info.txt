@@ -13,6 +13,9 @@ LibGDX Projekt:
 Generation:	Desktop, Android including IDEA Project Files
 Extensions: Box2D, Tools, Freetype
 
+Display Size:
+	1080 x 1920 Potrait mode 
+
 Notizen:
 
 Putting Project into Android Studio:

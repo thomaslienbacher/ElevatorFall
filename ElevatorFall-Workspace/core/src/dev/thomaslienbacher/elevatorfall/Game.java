@@ -1,5 +1,6 @@
 package dev.thomaslienbacher.elevatorfall;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -23,10 +24,10 @@ import dev.thomaslienbacher.elevatorfall.utils.Mouse;
 public class Game extends ApplicationAdapter {
 	
 	//constants
-	public static final int WIDTH = 1280;
-	public static final int HEIGHT = WIDTH / 16 * 9;
+	public static final int WIDTH = 1080;
+	public static final int HEIGHT = WIDTH / 9 * 16;
 	public static final float ASPECT_RATIO = (float)WIDTH / (float)HEIGHT;
-	public static final String TITLE = "Defender";
+	public static final String TITLE = "Elevator Fall";
 
 	private static SpriteBatch batch;
 	private static OrthographicCamera cam;
@@ -67,10 +68,12 @@ public class Game extends ApplicationAdapter {
 		guiCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 		//resize
-		float d = 0.80f;
-		Gdx.graphics.setWindowedMode((int) (Gdx.graphics.getDisplayMode().width * d),
-				(int) (Gdx.graphics.getDisplayMode().height * d));
-		
+		if(Gdx.app.getType() == Application.ApplicationType.Desktop) {
+			float d = 0.80f;
+			Gdx.graphics.setWindowedMode((int) (Gdx.graphics.getDisplayMode().height * d),
+					(int) (Gdx.graphics.getDisplayMode().height * d));
+		}
+
 		//batch
 		batch = new SpriteBatch();
 		

@@ -1,9 +1,12 @@
 package dev.thomaslienbacher.elevatorfall.scene;
 
+import com.badlogic.gdx.Version;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import dev.thomaslienbacher.elevatorfall.Game;
 import dev.thomaslienbacher.elevatorfall.assets.Data;
 
 
@@ -15,10 +18,10 @@ import dev.thomaslienbacher.elevatorfall.assets.Data;
 public class StartupScene extends Scene {
 	
 	//constants
-	public static final float LOGO_DISLAY_TIME = 0.1f;//set this to 3
+	public static final float LOGO_DISLAY_TIME = Game.DEBUG ? 0.1f : 3.0f;
 	
-	public float logoTime = 0;//counts how many seconds the logo has been displayed
-	public Texture tlsLogo;//Thomas Lienbacher Software Logo
+	public float logoTime = 0; //counts how many seconds the logo has been displayed
+	public Texture devLogo;
 
 	public StartupScene(GameStates state) {
 		super(state);
@@ -26,18 +29,18 @@ public class StartupScene extends Scene {
 	
 	@Override
 	public void loadAssets(AssetManager assetManager) {
-		assetManager.load(Data.TLS_LOGO, Texture.class);
+		assetManager.load(Data.DEV_LOGO, Texture.class);
 	}
 
 	@Override
 	public void create(AssetManager assetManager) {
-		tlsLogo = assetManager.get(Data.TLS_LOGO);
-		tlsLogo.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		devLogo = assetManager.get(Data.DEV_LOGO);
+		devLogo.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(tlsLogo, 0, 0);
+		batch.draw(devLogo, 0, 0);
 	}
 	
 	@Override
@@ -52,7 +55,7 @@ public class StartupScene extends Scene {
 
 	@Override
 	public void dispose() {
-		tlsLogo.dispose();
+		devLogo.dispose();
 	}
 
 	@Override
