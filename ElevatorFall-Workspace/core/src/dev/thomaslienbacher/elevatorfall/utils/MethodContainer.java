@@ -2,8 +2,6 @@ package dev.thomaslienbacher.elevatorfall.utils;
 
 /**
  * @author Thomas Lienbacher
- *
- * TODO: why don't use lambdas
  */
 public abstract class MethodContainer {
     public Object[] refs;

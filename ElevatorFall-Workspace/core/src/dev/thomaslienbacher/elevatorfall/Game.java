@@ -4,18 +4,17 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import dev.thomaslienbacher.elevatorfall.assets.Fonts;
-import dev.thomaslienbacher.elevatorfall.assets.Data;
-import dev.thomaslienbacher.elevatorfall.scene.*;
-import dev.thomaslienbacher.elevatorfall.utils.Logger;
+import dev.thomaslienbacher.elevatorfall.scene.GameScene;
+import dev.thomaslienbacher.elevatorfall.scene.GameStates;
+import dev.thomaslienbacher.elevatorfall.scene.MenuScene;
+import dev.thomaslienbacher.elevatorfall.scene.StartupScene;
 import dev.thomaslienbacher.elevatorfall.utils.Mouse;
 
 
@@ -53,7 +52,7 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		assetManager = new AssetManager();
-		
+
 		//cam and viewport
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, WIDTH, HEIGHT);
