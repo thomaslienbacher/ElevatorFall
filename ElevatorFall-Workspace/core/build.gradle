@@ -6,5 +6,5 @@ eclipse.project {
     name = appName + "-core"
 }
 dependencies {
-    compile files('C:/Eigene Dateien/Programmieren/Projekte/ElevatorFall/ElevatorFall-Workspace/libs/json-simple-1.1.1.jar')
+    compile fileTree(dir: '../libs', include: ['*.jar'])
 }
