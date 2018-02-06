@@ -9,6 +9,9 @@ Android 5.0 | API Level 21
 LibGDX Platform:
 Android 7.1.1 | API Level 25
 
+Nutze Java 1.8 ?? NEIN
+Siehe: https://developer.android.com/studio/write/java8-support.html
+
 Android Manifest:
 minSdkVersion = "21"
 targetSdkVersion = "25"
