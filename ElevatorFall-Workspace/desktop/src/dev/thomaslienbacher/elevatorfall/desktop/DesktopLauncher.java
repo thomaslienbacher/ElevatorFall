@@ -22,9 +22,9 @@ public class DesktopLauncher {
 		config.samples = 4;
 		config.allowSoftwareMode = false;
 		config.fullscreen = false;
-		config.vSyncEnabled = false;
+		config.vSyncEnabled = true;
 		config.foregroundFPS = 60;
-		config.backgroundFPS = 60;
+		config.backgroundFPS = 20;
 
 		config.forceExit = false;
 
