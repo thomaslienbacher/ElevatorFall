@@ -7,11 +7,16 @@ import com.badlogic.gdx.math.Vector3;
 import dev.thomaslienbacher.elevatorfall.Game;
 
 /**
+ * Don't use this class as its better to use the Inputprocessor
+ * This doesn't support multi touch
+ *
  * @author Thomas Lienbacher
+ * @deprecated
  */
 public class Mouse {
 	private static Vector2 mousePosition = new Vector2();
 
+	//needs to be called or else won't work
 	public static void update(OrthographicCamera cam){
 		Vector3 vec = new Vector3(Gdx.input.getX(), Gdx.input.getY(), cam.position.z);
 		cam.unproject(vec);
@@ -49,6 +54,4 @@ public class Mouse {
 	public static boolean justClicked(){
 		return Gdx.input.justTouched();
 	}
-
-
 }

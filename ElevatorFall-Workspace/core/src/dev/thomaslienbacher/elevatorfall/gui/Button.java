@@ -1,17 +1,19 @@
 package dev.thomaslienbacher.elevatorfall.gui;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer.Task;
-import dev.thomaslienbacher.elevatorfall.utils.Mouse;
+
 import dev.thomaslienbacher.elevatorfall.utils.Utils;
 
 /**
  * @author Thomas Lienbacher
+ *
+ * To use the button {@link #checkTouchDown(Vector2)}, {@link #checkTouchUp(Vector2)}
+ * and {@link #checkPointerMoved(Vector2)} must be placed in their equvilant {@link com.badlogic.gdx.InputProcessor} methods
  */
 public class Button{
 
@@ -20,6 +22,7 @@ public class Button{
 	protected Sprite spriteUp;
 	protected Sprite spriteDown;
 	protected boolean down = false;
+	protected boolean hovering = false;
 	protected float hoverScale = DEFAULT_HOVERSCALE;
 	protected Task onClickTask;
 
@@ -43,23 +46,27 @@ public class Button{
 		this.spriteDown.setOriginCenter();
 	}
 
-	public void checkTouchUp(float x, float y){
+	public void checkTouchUp(Vector2 pos){
 		if(down){
-			if(hitbox.contains(x, y)) onClickTask.run();	
+			if(hitbox.contains(pos.x, pos.y)) onClickTask.run();
 			down = false;
 		}
 	}
-	
-	public void checkTouchDown(float x, float y){
-		if(hitbox.contains(x, y)) down = true;
-	}	
+
+	public void checkTouchDown(Vector2 pos){
+		if(hitbox.contains(pos.x, pos.y)) down = true;
+	}
+
+	public void checkPointerMoved(Vector2 pos) {
+		hovering = hitbox.contains(pos.x, pos.y);
+	}
 	
 	public void render(SpriteBatch batch) {
 		spriteUp.setPosition(position.x, position.y);
 		spriteDown.setPosition(position.x, position.y);
 
 		if(hoverScale != 1f){
-			if(hitbox.contains(Mouse.getScreenX(), Mouse.getScreenY())){
+			if(hovering){
 				spriteUp.setScale(hoverScale);
 				spriteDown.setScale(hoverScale);
 			}

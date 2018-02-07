@@ -10,10 +10,7 @@ import dev.thomaslienbacher.elevatorfall.Game;
 import dev.thomaslienbacher.elevatorfall.assets.Data;
 import dev.thomaslienbacher.elevatorfall.assets.Fonts;
 import dev.thomaslienbacher.elevatorfall.gui.TextButton;
-import dev.thomaslienbacher.elevatorfall.utils.Mouse;
 import dev.thomaslienbacher.elevatorfall.utils.Utils;
-
-import java.util.ArrayList;
 
 /**
  * @author Thomas Lienbacher
@@ -21,11 +18,12 @@ import java.util.ArrayList;
 public class MenuScene extends Scene {
 	
 	private TextButton playButton;
-	private ArrayList<TextButton> levelButtons;
+
+	//debug
+	public static String test = "_";
 
 	public MenuScene(GameStates state) {
 		super(state);
-		levelButtons = new ArrayList<TextButton>();
 	}
 
 	@Override
@@ -41,7 +39,8 @@ public class MenuScene extends Scene {
 				new Vector2(100, 100), "Play", Fonts.getLondon(45), Color.BLACK, new Task(){
 					@Override
 					public void run() {
-						Game.getGameScene().switchTo();
+						//Game.getGameScene().switchTo();
+						MenuScene.test += "P~";
 					}
 		});
 	}
@@ -53,7 +52,7 @@ public class MenuScene extends Scene {
 	
 	@Override
 	public void renderGUI(SpriteBatch batch){
-		Fonts.getMorris(105).render(batch, Game.TITLE, Game.WIDTH / 2 - Utils.calculateStringWidth(Fonts.getMorris(105), Game.TITLE) / 2,
+		Fonts.getMorris(105).render(batch, test, Game.WIDTH / 2 - Utils.calculateStringWidth(Fonts.getMorris(105), test) / 2,
 				Game.HEIGHT - 60, Color.BLACK);
 		playButton.render(batch);
 	}
@@ -85,23 +84,31 @@ public class MenuScene extends Scene {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		playButton.checkTouchDown(Mouse.getScreenX(), Mouse.getScreenY());
+		Vector2 screen = Game.toScreenCoords(screenX, screenY);
+		playButton.checkTouchDown(screen);
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		playButton.checkTouchUp(Mouse.getScreenX(), Mouse.getScreenY());
+		Vector2 screen = Game.toScreenCoords(screenX, screenY);
+		playButton.checkTouchUp(screen);
 		return false;
 	}
 
+	//android
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		Vector2 screen = Game.toScreenCoords(screenX, screenY);
+		playButton.checkPointerMoved(screen);
 		return false;
 	}
 
+	//desktop
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
+		Vector2 screen = Game.toScreenCoords(screenX, screenY);
+		playButton.checkPointerMoved(screen);
 		return false;
 	}
 

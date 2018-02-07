@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import dev.thomaslienbacher.elevatorfall.assets.Fonts;
@@ -39,7 +41,7 @@ public class Game extends ApplicationAdapter {
 	private static GameStates gameState = GameStates.STARTUP;
 	private static AssetManager assetManager;
 	private static boolean firstFrame = true;
-	
+
 	//Scenes
 	private static StartupScene startupScene;
 	private static MenuScene menuScene;
@@ -57,11 +59,11 @@ public class Game extends ApplicationAdapter {
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, WIDTH, HEIGHT);
 		viewport = new StretchViewport(WIDTH, HEIGHT, cam);
-		
+
 		guiCam = new OrthographicCamera();
 		guiCam.setToOrtho(false, WIDTH, HEIGHT);
 		guiViewport = new StretchViewport(WIDTH, HEIGHT, guiCam);
-		
+
 		//resize
 		if(Gdx.app.getType() == Application.ApplicationType.Desktop) {
 			float d = 0.85f;
@@ -70,7 +72,7 @@ public class Game extends ApplicationAdapter {
 
 		//batch
 		batch = new SpriteBatch();
-		
+
 		//setup loadingscene
 		startupScene = new StartupScene(GameStates.STARTUP);
 		startupScene.loadAssets(assetManager);
@@ -97,7 +99,7 @@ public class Game extends ApplicationAdapter {
 		if(gameState == GameStates.STARTUP){
 			startupScene.render(batch);
 		}
-		
+
 		if(gameState == GameStates.MENU){
 			menuScene.render(batch);
 
@@ -105,10 +107,10 @@ public class Game extends ApplicationAdapter {
 			menuScene.renderGUI(batch);
 			batch.setProjectionMatrix(cam.combined);
 		}
-		
+
 		if(gameState == GameStates.GAME){
 			gameScene.render(batch);
-			
+
 			batch.setProjectionMatrix(guiCam.combined);
 			gameScene.renderGUI(batch);
 			batch.setProjectionMatrix(cam.combined);
@@ -135,8 +137,6 @@ public class Game extends ApplicationAdapter {
 	public void update(float delta){
 		if(delta > 0.2f) delta = 0.2f;
 
-		Mouse.update(cam);
-
 		if(firstFrame){
 			//scenes
 			menuScene = new MenuScene(GameStates.MENU);
@@ -146,10 +146,10 @@ public class Game extends ApplicationAdapter {
 			Fonts.loadFonts();
 			menuScene.loadAssets(assetManager);
 			gameScene.loadAssets(assetManager);
-			
+
 			firstFrame = false;
 		}
-		
+
 		if(gameState == GameStates.STARTUP){
 			startupScene.update(delta);
 			assetManager.update();
@@ -162,7 +162,7 @@ public class Game extends ApplicationAdapter {
 				gameScene.create(assetManager);
 			}
 		}
-		
+
 		if(gameState == GameStates.MENU) menuScene.update(delta);
 		if(gameState == GameStates.GAME) gameScene.update(delta);
 	}
@@ -179,6 +179,19 @@ public class Game extends ApplicationAdapter {
 		if(DEBUG) {
 			shapeRenderer.dispose();
 		}
+	}
+
+	public static Vector2 cameraUnproject(int screenX, int screenY) {
+		Vector3 vec = new Vector3(screenX, screenY, cam.position.z);
+		cam.unproject(vec);
+		return new Vector2(vec.x, vec.y);
+	}
+
+	public static Vector2 toScreenCoords(int screenX, int screenY) {
+		Vector2 vec = new Vector2();
+		vec.x = (float)Gdx.input.getX() / (float)Gdx.graphics.getWidth() * Game.WIDTH;
+		vec.y = -((float)Gdx.input.getY() / (float)Gdx.graphics.getHeight() * Game.HEIGHT) + Game.HEIGHT;
+		return vec;
 	}
 
 	public static float getDelta(){
