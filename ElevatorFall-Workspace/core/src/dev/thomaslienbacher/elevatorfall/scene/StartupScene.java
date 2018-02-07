@@ -1,6 +1,5 @@
 package dev.thomaslienbacher.elevatorfall.scene;
 
-import com.badlogic.gdx.Version;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;

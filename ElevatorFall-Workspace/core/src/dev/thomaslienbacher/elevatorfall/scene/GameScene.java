@@ -36,7 +36,7 @@ public class GameScene extends Scene {
 	
 	@Override
 	public void renderGUI(SpriteBatch batch){
-		Fonts.getMorris(45).render(batch, "Defender", 10, 50, Color.BLACK);
+		Fonts.getMorris(100).render(batch, "Defender", 10, 50, Color.BLACK);
 	}
 
 	@Override

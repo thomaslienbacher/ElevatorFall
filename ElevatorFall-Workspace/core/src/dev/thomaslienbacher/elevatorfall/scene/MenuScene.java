@@ -36,7 +36,7 @@ public class MenuScene extends Scene {
 	public void create(AssetManager assetManager) {
 		playButton = new TextButton((Texture) assetManager.get(Data.MENU_BUTTON_UP),
 				(Texture) assetManager.get(Data.MENU_BUTTON_DOWN),
-				new Vector2(100, 100), "Play", Fonts.getLondon(45), Color.BLACK, new Task(){
+				new Vector2(100, 100), "Play", Fonts.getLondon(60), Color.BLACK, new Task(){
 					@Override
 					public void run() {
 						//Game.getGameScene().switchTo();
@@ -52,7 +52,7 @@ public class MenuScene extends Scene {
 	
 	@Override
 	public void renderGUI(SpriteBatch batch){
-		Fonts.getMorris(105).render(batch, test, Game.WIDTH / 2 - Utils.calculateStringWidth(Fonts.getMorris(105), test) / 2,
+		Fonts.getMorris(100).render(batch, test, Game.WIDTH / 2 - Utils.calculateStringWidth(Fonts.getMorris(100), test) / 2,
 				Game.HEIGHT - 60, Color.BLACK);
 		playButton.render(batch);
 	}
