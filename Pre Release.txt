@@ -1,0 +1,3 @@
+Remove debug stuff
+Remove desktop stuff
+Remove shaperenderer and box2ddebugrender

@@ -51,7 +51,7 @@ public class Button {
             if(hitbox.contains(pos.x, pos.y)) onClickTask.run();
             down = false;
         }
-        
+
         hovering = false;
     }
 

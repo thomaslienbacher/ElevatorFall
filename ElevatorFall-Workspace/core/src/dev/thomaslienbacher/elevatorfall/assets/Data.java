@@ -26,6 +26,9 @@ public class Data {
     public static final String LOADING_BACKGROUND = "loading/loading_background.png";
     public static final String LOADING_ANIMATION = "loading/loading_animation.pack";
 
+    //actors
+    public static final String BALL_TEXTURE = "actors/ball.png";
+
     //fonts
     public static final String FONT_LONDON = "fonts/LondonTwo.ttf";
     public static final String FONT_MORRIS = "fonts/MorrisRomanBlack.ttf";

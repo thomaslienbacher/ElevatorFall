@@ -3,6 +3,7 @@ package dev.thomaslienbacher.elevatorfall;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -165,6 +166,11 @@ public class Game extends ApplicationAdapter {
 
 		if(gameState == GameStates.MENU) menuScene.update(delta);
 		if(gameState == GameStates.GAME) gameScene.update(delta);
+
+		//debug
+		if(DEBUG) {
+			if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
+		}
 	}
 
 	@Override

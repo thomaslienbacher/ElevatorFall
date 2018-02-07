@@ -2,6 +2,7 @@ package dev.thomaslienbacher.elevatorfall.actors;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+
 import dev.thomaslienbacher.elevatorfall.physics.PhysicsBody;
 
 /**
@@ -9,15 +10,11 @@ import dev.thomaslienbacher.elevatorfall.physics.PhysicsBody;
  */
 public abstract class PhysicsActor{
 
-    public static final float OBJECT_RADIUS = 31.5f;
-    
     protected float rotation = 0;
     protected float scale = 1;
     protected PhysicsBody body = new PhysicsBody();
-    
-    public PhysicsActor(){
 
-    }
+    public PhysicsActor(){}
 
     public abstract void update(float delta);
 
@@ -58,11 +55,11 @@ public abstract class PhysicsActor{
     public PhysicsBody getBody() {
         return body;
     }
-    
+
     public Vector2 getPositionPxl(){
         return body.getPositionPxl();
     }
-    
+
     public void applyImpulse(Vector2 impulse){
         body.applyImpulse(impulse);
     }

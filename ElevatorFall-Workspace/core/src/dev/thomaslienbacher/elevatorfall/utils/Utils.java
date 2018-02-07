@@ -102,6 +102,11 @@ public class Utils {
         }
     }
 
+    //TODO: implement
+    public static void setMipMapFilter(Texture texture){
+
+    }
+
     public static void setLinearFilter(Texture texture){
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }

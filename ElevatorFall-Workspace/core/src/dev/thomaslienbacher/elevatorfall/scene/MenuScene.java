@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer.Task;
+
 import dev.thomaslienbacher.elevatorfall.Game;
 import dev.thomaslienbacher.elevatorfall.assets.Data;
 import dev.thomaslienbacher.elevatorfall.assets.Fonts;
@@ -18,9 +19,6 @@ import dev.thomaslienbacher.elevatorfall.utils.Utils;
 public class MenuScene extends Scene {
 	
 	private TextButton playButton;
-
-	//debug
-	public static String test = "_";
 
 	public MenuScene(GameStates state) {
 		super(state);
@@ -39,8 +37,7 @@ public class MenuScene extends Scene {
 				new Vector2(100, 100), "Play", Fonts.getLondon(60), Color.BLACK, new Task(){
 					@Override
 					public void run() {
-						//Game.getGameScene().switchTo();
-						MenuScene.test += "P~";
+						Game.getGameScene().switchTo();
 					}
 		});
 	}
@@ -52,7 +49,7 @@ public class MenuScene extends Scene {
 	
 	@Override
 	public void renderGUI(SpriteBatch batch){
-		Fonts.getMorris(100).render(batch, test, Game.WIDTH / 2 - Utils.calculateStringWidth(Fonts.getMorris(100), test) / 2,
+		Fonts.getMorris(100).render(batch, "WOW", Game.WIDTH / 2 - Utils.calculateStringWidth(Fonts.getMorris(100), "WOW") / 2,
 				Game.HEIGHT - 60, Color.BLACK);
 		playButton.render(batch);
 	}
