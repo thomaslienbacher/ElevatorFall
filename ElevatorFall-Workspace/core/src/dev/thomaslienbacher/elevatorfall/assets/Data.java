@@ -17,7 +17,7 @@ public class Data {
     public static final float FRICTION_STATIC = 0.2f;
     public static final int VELOCITY_ITER = 4;
     public static final int POSITION_ITER = 2;
-    public static final Vector2 GRAVITY = new Vector2(0, -150);
+    public static final Vector2 GRAVITY = Vector2.Zero;
 
     //misc
     public static final String DEV_LOGO = "logo.png";
@@ -31,6 +31,7 @@ public class Data {
 
     //actors
     public static final String BALL_TEXTURE = "actors/ball.png";
+    public static final String COLLIDEBOX_TEXTURE = "actors/collidebox.png";
 
     //fonts
     public static final String FONT_LONDON = "fonts/LondonTwo.ttf";

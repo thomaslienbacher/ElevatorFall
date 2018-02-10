@@ -8,7 +8,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -18,7 +17,6 @@ import dev.thomaslienbacher.elevatorfall.scene.GameScene;
 import dev.thomaslienbacher.elevatorfall.scene.GameStates;
 import dev.thomaslienbacher.elevatorfall.scene.MenuScene;
 import dev.thomaslienbacher.elevatorfall.scene.StartupScene;
-import dev.thomaslienbacher.elevatorfall.utils.Mouse;
 
 
 /**

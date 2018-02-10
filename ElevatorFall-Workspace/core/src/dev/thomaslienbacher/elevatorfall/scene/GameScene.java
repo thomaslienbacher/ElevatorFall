@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import dev.thomaslienbacher.elevatorfall.Game;
 import dev.thomaslienbacher.elevatorfall.actors.Ball;
+import dev.thomaslienbacher.elevatorfall.actors.CollideBoxManager;
 import dev.thomaslienbacher.elevatorfall.assets.Data;
 import dev.thomaslienbacher.elevatorfall.assets.Fonts;
 import dev.thomaslienbacher.elevatorfall.physics.PhysicsContactListener;
@@ -21,6 +22,7 @@ public class GameScene extends Scene {
 
 	private PhysicsSpace space;
 	private Ball ball;
+	private CollideBoxManager collideBoxManager;
 
 	//debug
 	Box2DDebugRenderer renderer;
@@ -32,12 +34,14 @@ public class GameScene extends Scene {
 	@Override
 	public void loadAssets(AssetManager assetManager) {
 		assetManager.load(Data.BALL_TEXTURE, Texture.class);
+		assetManager.load(Data.COLLIDEBOX_TEXTURE, Texture.class);
 	}
 
 	@Override
 	public void create(AssetManager assetManager) {
 		space = new PhysicsSpace(Data.GRAVITY, new PhysicsContactListener());
 		ball = new Ball(space, (Texture) assetManager.get(Data.BALL_TEXTURE));
+		collideBoxManager = new CollideBoxManager(space, (Texture) assetManager.get(Data.COLLIDEBOX_TEXTURE));
 
 		//debug
 		if(Game.DEBUG) {
@@ -50,6 +54,7 @@ public class GameScene extends Scene {
 	@Override
 	public void render(SpriteBatch batch) {
 		ball.render(batch);
+		collideBoxManager.render(batch);
 
 		//debug
 		if(Game.DEBUG) {
@@ -68,6 +73,7 @@ public class GameScene extends Scene {
 	public void update(float delta) {
 		space.step(delta, Data.VELOCITY_ITER, Data.POSITION_ITER);
 		ball.update(delta);
+		collideBoxManager.update(delta);
 	}
 
 	@Override
@@ -101,6 +107,7 @@ public class GameScene extends Scene {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		Vector2 screen = Game.toScreenCoords(screenX, screenY);
+		ball.checkTouchDown(screen);
 
 		return false;
 	}
@@ -108,6 +115,7 @@ public class GameScene extends Scene {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		Vector2 screen = Game.toScreenCoords(screenX, screenY);
+		ball.checkTouchUp(screen);
 
 		return false;
 	}
