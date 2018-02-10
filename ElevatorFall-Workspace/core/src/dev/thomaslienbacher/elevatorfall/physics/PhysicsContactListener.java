@@ -19,8 +19,13 @@ public class PhysicsContactListener implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
         if(containsUserdata(contact, CollideBox.USERDATA, Ball.USERDATA)) {
-            Gdx.app.log("contact", "ball collided");
-            //game ended
+            Gdx.app.postRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    Game.getMenuScene().switchTo();
+                    Game.getGameScene().reset();
+                }
+            });
         }
     }
 

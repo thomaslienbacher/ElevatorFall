@@ -21,6 +21,7 @@ import dev.thomaslienbacher.elevatorfall.physics.PhysicsSpace;
  */
 public class GameScene extends Scene {
 
+	private boolean reset = false;
 	private PhysicsSpace space;
 	private Ball ball;
 	private CollideBoxManager collideBoxManager;
@@ -63,7 +64,12 @@ public class GameScene extends Scene {
 		if(Game.DEBUG) {
 			batch.end();
 			batch.begin();
-			renderer.render(space.get(), Game.getCam().combined.cpy().scl(Data.MTR_2_PXL));
+			try {
+				renderer.render(space.get(), Game.getCam().combined.cpy().scl(Data.MTR_2_PXL));
+			}
+			catch(Exception e) {
+				//yeah...
+			}
 		}
 	}
 	
@@ -74,6 +80,12 @@ public class GameScene extends Scene {
 
 	@Override
 	public void update(float delta) {
+		if(reset) {
+			reset();
+			reset = false;
+
+		}
+
 		space.step(delta, Data.VELOCITY_ITER, Data.POSITION_ITER);
 		ball.update(delta);
 		collideBoxManager.update(delta);
@@ -87,6 +99,11 @@ public class GameScene extends Scene {
 		if(Game.DEBUG) {
 			renderer.dispose();
 		}
+	}
+
+	public void reset() {
+		ball.reset();
+		collideBoxManager.reset();
 	}
 
 	@Override
@@ -153,4 +170,19 @@ public class GameScene extends Scene {
 	public CollideBoxManager getCollideBoxManager() {
 		return collideBoxManager;
 	}
+
+
+	public void setReset(boolean reset) {
+		this.reset = reset;
+	}
+
+	public boolean isReset() {
+
+		return reset;
+	}
+
+	public Bounds getBounds() {
+		return bounds;
+	}
+
 }

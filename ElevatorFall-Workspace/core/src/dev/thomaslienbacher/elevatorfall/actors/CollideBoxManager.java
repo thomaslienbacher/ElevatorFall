@@ -8,13 +8,15 @@ import java.util.LinkedList;
 
 import dev.thomaslienbacher.elevatorfall.Game;
 import dev.thomaslienbacher.elevatorfall.physics.PhysicsSpace;
+import dev.thomaslienbacher.elevatorfall.utils.Utils;
 
 /**
  * @author Thomas Lienbacher
  */
 public class CollideBoxManager {
 
-    private static final float SPAWN_TIME = 2.0f;
+    private static final float SPAWN_TIME = 1.5f;
+    private static final float START_TIME = 3.0f;
 
     private LinkedList<CollideBox> collideBoxes;
     private PhysicsSpace space;
@@ -25,6 +27,7 @@ public class CollideBoxManager {
         this.space = space;
         this.collideBoxTex = collideBoxTex;
         collideBoxes = new LinkedList<CollideBox>();
+        this.time = START_TIME;
     }
 
     public void update(float delta) {
@@ -53,6 +56,13 @@ public class CollideBoxManager {
     private void spawn(){
         CollideBox cb = new CollideBox(space, collideBoxTex, (float) Math.floor(Math.random() * Game.WIDTH - collideBoxTex.getWidth()));
         collideBoxes.add(cb);
+    }
+
+    public void reset(){
+        for(CollideBox c : collideBoxes) space.destroyBody(c.body);
+
+        collideBoxes.clear();
+        time = START_TIME;
     }
 
 }

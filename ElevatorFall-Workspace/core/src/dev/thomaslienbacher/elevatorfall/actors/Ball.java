@@ -24,7 +24,6 @@ public class Ball extends PhysicsActor {
     private static final float THRUST = 1300.0f;
 
     private Sprite sprite;
-    private boolean dead = false;
     private boolean leftThrust = false;
     private boolean rightThrust = false;
 
@@ -33,7 +32,7 @@ public class Ball extends PhysicsActor {
         Utils.setLinearFilter(tex);
         this.sprite = new Sprite(tex);
 
-        body.initAsCircle(space, BodyDef.BodyType.DynamicBody, new Vector2(Game.WIDTH / 2, START_Y), Data.FRICTION_DYNAMIC, sprite.getWidth() / 2);
+        body.initAsCircle(space, BodyDef.BodyType.DynamicBody, new Vector2(Game.WIDTH / 2, START_Y + sprite.getWidth() / 2), Data.FRICTION_DYNAMIC, sprite.getWidth() / 2);
         body.setLinearVelocity(Vector2.Zero);
         body.setRestitution(0.2f);
     }
@@ -51,6 +50,11 @@ public class Ball extends PhysicsActor {
         sprite.setRotation(rotation);
         sprite.setScale(scale);
         sprite.draw(batch);
+    }
+
+    public void reset(){
+        body.setLinearVelocity(Vector2.Zero);
+        body.setPositionPxl(new Vector2(Game.WIDTH / 2, START_Y + sprite.getWidth() / 2));
     }
 
     public void checkTouchUp(Vector2 screen) {

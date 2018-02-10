@@ -26,7 +26,7 @@ public class Bounds {
         floor = new PhysicsBody();
 
         float t = 30.0f;
-        float y = Ball.START_Y - t;
+        float y = Ball.START_Y;
 
         leftWall.initAsBox(space, BodyDef.BodyType.StaticBody, new Vector2(-t, y),
                 Data.FRICTION_STATIC, t, Game.HEIGHT);
