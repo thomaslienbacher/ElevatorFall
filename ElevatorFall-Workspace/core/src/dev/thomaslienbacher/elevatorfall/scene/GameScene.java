@@ -21,7 +21,6 @@ import dev.thomaslienbacher.elevatorfall.physics.PhysicsSpace;
  */
 public class GameScene extends Scene {
 
-	private boolean reset = false;
 	private PhysicsSpace space;
 	private Ball ball;
 	private CollideBoxManager collideBoxManager;
@@ -80,12 +79,6 @@ public class GameScene extends Scene {
 
 	@Override
 	public void update(float delta) {
-		if(reset) {
-			reset();
-			reset = false;
-
-		}
-
 		space.step(delta, Data.VELOCITY_ITER, Data.POSITION_ITER);
 		ball.update(delta);
 		collideBoxManager.update(delta);
@@ -127,7 +120,7 @@ public class GameScene extends Scene {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		Vector2 screen = Game.toScreenCoords(screenX, screenY);
-		ball.checkTouchDown(screen);
+		ball.checkTouchDown(screen, pointer);
 
 		return false;
 	}
@@ -135,7 +128,7 @@ public class GameScene extends Scene {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		Vector2 screen = Game.toScreenCoords(screenX, screenY);
-		ball.checkTouchUp(screen);
+		ball.checkTouchUp(pointer);
 
 		return false;
 	}
@@ -143,6 +136,7 @@ public class GameScene extends Scene {
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		Vector2 screen = Game.toScreenCoords(screenX, screenY);
+		ball.checkPointerMoved(screen, pointer);
 
 		return false;
 	}
@@ -169,16 +163,6 @@ public class GameScene extends Scene {
 
 	public CollideBoxManager getCollideBoxManager() {
 		return collideBoxManager;
-	}
-
-
-	public void setReset(boolean reset) {
-		this.reset = reset;
-	}
-
-	public boolean isReset() {
-
-		return reset;
 	}
 
 	public Bounds getBounds() {
