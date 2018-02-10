@@ -104,8 +104,6 @@ public class MenuScene extends Scene {
 	//desktop
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		Vector2 screen = Game.toScreenCoords(screenX, screenY);
-		playButton.checkPointerMoved(screen);
 		return false;
 	}
 

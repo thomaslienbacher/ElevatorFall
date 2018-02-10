@@ -1,6 +1,6 @@
 package dev.thomaslienbacher.elevatorfall.assets;
 
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * @author Thomas Lienbacher
@@ -13,8 +13,11 @@ public class Data {
     //constants
     public static final float PXL_2_MTR = 0.1f;
     public static final float MTR_2_PXL = 1 / PXL_2_MTR;
-    public static final float FRICTION_DYNAMIC = 0.3f;
-    public static final float FRICTION_STATIC = 0.3f;
+    public static final float FRICTION_DYNAMIC = 0.2f;
+    public static final float FRICTION_STATIC = 0.2f;
+    public static final int VELOCITY_ITER = 4;
+    public static final int POSITION_ITER = 2;
+    public static final Vector2 GRAVITY = new Vector2(0, -150);
 
     //misc
     public static final String DEV_LOGO = "logo.png";
@@ -28,6 +31,7 @@ public class Data {
 
     //actors
     public static final String BALL_TEXTURE = "actors/ball.png";
+    public static final String CONTROLBAR_TEXTURE = "actors/controlbar.png";
 
     //fonts
     public static final String FONT_LONDON = "fonts/LondonTwo.ttf";

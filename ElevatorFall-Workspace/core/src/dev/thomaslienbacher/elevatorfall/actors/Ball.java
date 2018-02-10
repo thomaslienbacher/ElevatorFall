@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import dev.thomaslienbacher.elevatorfall.Game;
 import dev.thomaslienbacher.elevatorfall.assets.Data;
 import dev.thomaslienbacher.elevatorfall.physics.PhysicsSpace;
 import dev.thomaslienbacher.elevatorfall.utils.Utils;
@@ -19,10 +20,11 @@ public class Ball extends PhysicsActor {
     private boolean dead = false;
 
     public Ball(PhysicsSpace space, Texture tex){
+        super(false);
         Utils.setLinearFilter(tex);
         this.sprite = new Sprite(tex);
 
-        body.initAsCircle(space, BodyDef.BodyType.KinematicBody, new Vector2(), Data.FRICTION_DYNAMIC, sprite.getWidth()); //TODO: change
+        body.initAsCircle(space, BodyDef.BodyType.DynamicBody, new Vector2(Game.WIDTH / 2, Game.HEIGHT / 2), Data.FRICTION_DYNAMIC, sprite.getWidth() / 2);
     }
 
     @Override
@@ -33,7 +35,7 @@ public class Ball extends PhysicsActor {
     @Override
     public void render(SpriteBatch batch) {
         Vector2 pos = body.getPositionPxl();
-        sprite.setPosition(pos.x, pos.y);
+        sprite.setPosition(pos.x - sprite.getWidth() / 2, pos.y - sprite.getWidth() / 2);
         sprite.setRotation(rotation);
         sprite.setScale(scale);
         sprite.draw(batch);

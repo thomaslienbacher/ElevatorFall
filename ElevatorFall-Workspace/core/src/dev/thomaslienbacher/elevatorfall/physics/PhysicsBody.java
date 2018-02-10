@@ -3,18 +3,21 @@ package dev.thomaslienbacher.elevatorfall.physics;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import dev.thomaslienbacher.elevatorfall.assets.Data;
+import dev.thomaslienbacher.elevatorfall.utils.Utils;
 
 /**
  * @author Thomas Lienbacher
  */
 public class PhysicsBody {
-    private Body body = null;
+    private Body body;
+    private boolean canRotate = false;
 
-    public PhysicsBody(){}
+    public PhysicsBody(){
+        this(false);
+    }
 
-    public PhysicsBody(Body body) {
-        this.body = body;
-        body.setUserData(this);
+    public PhysicsBody(boolean canRotate) {
+        this.canRotate = canRotate;
     }
 
     private void init(PhysicsSpace space, BodyDef.BodyType type, Vector2 position){
@@ -22,7 +25,7 @@ public class PhysicsBody {
 
         BodyDef def = new BodyDef();
         def.type = type;
-        def.fixedRotation = true;
+        def.fixedRotation = !canRotate;
 
         body = space.get().createBody(def);
         body.setTransform(position, 0);
@@ -137,6 +140,12 @@ public class PhysicsBody {
         body.applyLinearImpulse(impulse, Vector2.Zero, true);
     }
 
+    public void applyImpulse(Vector2 impulse, Vector2 relative){
+        impulse.scl(Data.PXL_2_MTR);
+        relative.scl(Data.PXL_2_MTR);
+        body.applyLinearImpulse(impulse, relative, true);
+    }
+
     /**
      * Applies force to the center of mass of the body
      *
@@ -153,9 +162,29 @@ public class PhysicsBody {
         body.applyForceToCenter(force, true);
     }
 
+    public void applyForce(Vector2 force, Vector2 relative){
+        force.scl(Data.PXL_2_MTR);
+        relative.scl(Data.PXL_2_MTR);
+        body.applyForce(force, relative, true);
+    }
+
     public void setPositionPxl(Vector2 v){
         v.scl(Data.PXL_2_MTR);
-        body.setTransform(v, 0);
+        body.setTransform(v, getAngle() * Utils.DEG_2_RAD);
+    }
+
+    public void setAngle(float degrees){
+        body.setTransform(body.getPosition(), degrees * Utils.DEG_2_RAD);
+    }
+
+    public void setLinearVelocity(Vector2 vel){
+        vel.scl(Data.PXL_2_MTR);
+        body.setLinearVelocity(vel);
+    }
+
+    public void setAngularVelocity(float vel){
+        vel *= Data.PXL_2_MTR;
+        body.setAngularVelocity(vel);
     }
 
     public void setRestitution(float restitution){
@@ -168,5 +197,16 @@ public class PhysicsBody {
 
     public Vector2 getPositionPxl(){
         return body.getPosition().cpy().scl(Data.MTR_2_PXL);
+    }
+
+    /**
+     * @return angle in degrees
+     */
+    public float getAngle() {
+        return body.getAngle() * Utils.RAD_2_DEG;
+    }
+
+    public boolean canRotate() {
+        return canRotate;
     }
 }

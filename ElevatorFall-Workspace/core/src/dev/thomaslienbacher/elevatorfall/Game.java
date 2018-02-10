@@ -32,7 +32,6 @@ public class Game extends ApplicationAdapter {
 	public static final int WIDTH = 1080;
 	public static final int HEIGHT = WIDTH / 9 * 16;
 	public static final float ASPECT_RATIO = (float)WIDTH / (float)HEIGHT;
-	public static final String TITLE = "Elevator Fall";
 
 	private static SpriteBatch batch;
 	private static StretchViewport viewport;
@@ -50,7 +49,6 @@ public class Game extends ApplicationAdapter {
 
 	//debug
 	public final static boolean DEBUG = true;
-	private static ShapeRenderer shapeRenderer;
 
 	@Override
 	public void create () {
@@ -80,12 +78,6 @@ public class Game extends ApplicationAdapter {
 		assetManager.finishLoading(); //this should never be called but this is an exception
 		startupScene.create(assetManager);
 		startupScene.switchTo();
-
-		//debug
-		if(DEBUG) {
-			shapeRenderer = new ShapeRenderer();
-			shapeRenderer.setAutoShapeType(true);
-		}
 	}
 
 	@Override
@@ -118,13 +110,6 @@ public class Game extends ApplicationAdapter {
 		}
 
 		batch.end();
-
-		//debug
-		if(DEBUG) {
-			shapeRenderer.setProjectionMatrix(cam.combined);
-			shapeRenderer.begin();
-			shapeRenderer.end();
-		}
 
 		update(Gdx.graphics.getDeltaTime());
 	}
@@ -181,10 +166,6 @@ public class Game extends ApplicationAdapter {
 		batch.dispose();
 		Fonts.dispose();
 		assetManager.dispose();
-
-		if(DEBUG) {
-			shapeRenderer.dispose();
-		}
 	}
 
 	public static Vector2 cameraUnproject(int screenX, int screenY) {
@@ -195,8 +176,8 @@ public class Game extends ApplicationAdapter {
 
 	public static Vector2 toScreenCoords(int screenX, int screenY) {
 		Vector2 vec = new Vector2();
-		vec.x = (float)Gdx.input.getX() / (float)Gdx.graphics.getWidth() * Game.WIDTH;
-		vec.y = -((float)Gdx.input.getY() / (float)Gdx.graphics.getHeight() * Game.HEIGHT) + Game.HEIGHT;
+		vec.x = (float)screenX/ (float)Gdx.graphics.getWidth() * Game.WIDTH;
+		vec.y = -((float)screenY / (float)Gdx.graphics.getHeight() * Game.HEIGHT) + Game.HEIGHT;
 		return vec;
 	}
 
@@ -249,4 +230,5 @@ public class Game extends ApplicationAdapter {
 	public static StretchViewport getGuiViewport() {
 		return guiViewport;
 	}
+
 }

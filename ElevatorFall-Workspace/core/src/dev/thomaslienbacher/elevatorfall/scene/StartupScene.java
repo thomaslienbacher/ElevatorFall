@@ -17,7 +17,7 @@ import dev.thomaslienbacher.elevatorfall.assets.Data;
 public class StartupScene extends Scene {
 	
 	//constants
-	public static final float LOGO_DISLAY_TIME = Game.DEBUG ? 0.1f : 3.0f;
+	public static final float LOGO_DISLAY_TIME = Game.DEBUG ? 0.1f : 3.0f;//debug
 	
 	public float logoTime = 0; //counts how many seconds the logo has been displayed
 	public Texture devLogo;
