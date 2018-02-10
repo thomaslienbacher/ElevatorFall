@@ -61,7 +61,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameScene.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameScene.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/scene/GameScene.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
@@ -90,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PhysicsContactListener.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PhysicsContactListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/physics/PhysicsContactListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="24" column="50" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
+            <state relative-caret-position="270">
+              <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
               <folding>
                 <element signature="e#769#930#0" expanded="true" />
                 <element signature="e#929#930#0" expanded="true" />
@@ -124,8 +124,8 @@
       <file leaf-file-name="CollideBoxManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/actors/CollideBoxManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
+            <state relative-caret-position="-176">
+              <caret line="17" column="47" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -2583,11 +2583,11 @@
         <option value="$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/actors/Bounds.java" />
         <option value="$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/actors/CollideBox.java" />
         <option value="$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/actors/Ball.java" />
-        <option value="$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/physics/PhysicsContactListener.java" />
-        <option value="$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/actors/CollideBoxManager.java" />
         <option value="$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/scene/MenuScene.java" />
         <option value="$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/Game.java" />
         <option value="$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/scene/GameScene.java" />
+        <option value="$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/actors/CollideBoxManager.java" />
+        <option value="$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/physics/PhysicsContactListener.java" />
       </list>
     </option>
   </component>
@@ -3622,14 +3622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/actors/CollideBoxManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/actors/Ball.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -3642,17 +3634,6 @@
             <element signature="e#2275#2276#0" expanded="true" />
             <element signature="e#2341#2342#0" expanded="true" />
             <element signature="e#2386#2387#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/physics/PhysicsContactListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="24" column="50" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
-          <folding>
-            <element signature="e#769#930#0" expanded="true" />
-            <element signature="e#929#930#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3706,6 +3687,25 @@
             <element signature="e#2296#2297#0" expanded="true" />
             <element signature="e#4077#4078#0" expanded="true" />
             <element signature="e#4097#4098#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/actors/CollideBoxManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-176">
+          <caret line="17" column="47" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/dev/thomaslienbacher/elevatorfall/physics/PhysicsContactListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+          <folding>
+            <element signature="e#769#930#0" expanded="true" />
+            <element signature="e#929#930#0" expanded="true" />
           </folding>
         </state>
       </provider>

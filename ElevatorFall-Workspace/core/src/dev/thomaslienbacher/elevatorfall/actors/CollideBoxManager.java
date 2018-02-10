@@ -17,17 +17,25 @@ public class CollideBoxManager {
 
     private static final float SPAWN_TIME = 1.5f;
     private static final float START_TIME = 2.0f;
+    private static final int SPAWN_POSITIONS = 7;
 
     private LinkedList<CollideBox> collideBoxes;
     private PhysicsSpace space;
     private Texture collideBoxTex;
     private float time;
+    private float[] spawnPositions;
 
     public CollideBoxManager(PhysicsSpace space, Texture collideBoxTex) {
         this.space = space;
         this.collideBoxTex = collideBoxTex;
         collideBoxes = new LinkedList<CollideBox>();
         this.time = START_TIME;
+
+        spawnPositions = new float[SPAWN_POSITIONS];
+
+        for(int i = 0; i < spawnPositions.length; i++) {
+            spawnPositions[i] = (int) Math.round((float)i * ((float)(Game.WIDTH - collideBoxTex.getWidth()) / (float)(SPAWN_POSITIONS - 1)));
+        }
     }
 
     public void update(float delta) {
@@ -54,7 +62,7 @@ public class CollideBoxManager {
     }
 
     private void spawn(){
-        CollideBox cb = new CollideBox(space, collideBoxTex, (float) Math.floor(Math.random() * Game.WIDTH - collideBoxTex.getWidth()));
+        CollideBox cb = new CollideBox(space, collideBoxTex, spawnPositions[(int) Math.floor(Math.random() * spawnPositions.length)]);
         collideBoxes.add(cb);
     }
 
