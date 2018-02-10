@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -30,6 +31,7 @@ public class Game extends ApplicationAdapter {
 	public static final int WIDTH = 1080;
 	public static final int HEIGHT = WIDTH / 9 * 16;
 	public static final float ASPECT_RATIO = (float)WIDTH / (float)HEIGHT;
+	public static final String PREFERENCES = "prefs";
 
 	private static SpriteBatch batch;
 	private static StretchViewport viewport;
@@ -39,6 +41,8 @@ public class Game extends ApplicationAdapter {
 	private static GameStates gameState = GameStates.STARTUP;
 	private static AssetManager assetManager;
 	private static boolean firstFrame = true;
+	private static Preferences preferences;
+	private static int highscore = 0;
 
 	//Scenes
 	private static StartupScene startupScene;
@@ -118,6 +122,16 @@ public class Game extends ApplicationAdapter {
 		guiViewport.update(width, height);
 	}
 
+	@Override
+	public void pause() {
+		super.pause();
+	}
+
+	@Override
+	public void resume() {
+		super.resume();
+	}
+
 	public void update(float delta){
 		if(delta > 0.2f) delta = 0.2f;
 
@@ -130,6 +144,10 @@ public class Game extends ApplicationAdapter {
 			Fonts.loadFonts();
 			menuScene.loadAssets(assetManager);
 			gameScene.loadAssets(assetManager);
+
+			//load prefs
+			preferences = Gdx.app.getPreferences(PREFERENCES);
+			highscore = Game.getPreferences().getInteger("highscore", 0);
 
 			firstFrame = false;
 		}
@@ -164,6 +182,9 @@ public class Game extends ApplicationAdapter {
 		batch.dispose();
 		Fonts.dispose();
 		assetManager.dispose();
+
+		Game.getPreferences().putInteger("highscore", highscore);
+		preferences.flush();
 	}
 
 	public static Vector2 cameraUnproject(int screenX, int screenY) {
@@ -229,4 +250,15 @@ public class Game extends ApplicationAdapter {
 		return guiViewport;
 	}
 
+	public static Preferences getPreferences() {
+		return preferences;
+	}
+
+	public static int getHighscore() {
+		return highscore;
+	}
+
+	public static void setHighscore(int highscore) {
+		Game.highscore = highscore;
+	}
 }

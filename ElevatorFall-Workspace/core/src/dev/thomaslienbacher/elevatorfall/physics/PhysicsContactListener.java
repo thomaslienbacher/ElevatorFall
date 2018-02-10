@@ -22,8 +22,7 @@ public class PhysicsContactListener implements ContactListener {
             Gdx.app.postRunnable(new Runnable() {
                 @Override
                 public void run() {
-                    Game.getMenuScene().switchTo();
-                    Game.getGameScene().reset();
+                    Game.getGameScene().onDeath();
                 }
             });
         }

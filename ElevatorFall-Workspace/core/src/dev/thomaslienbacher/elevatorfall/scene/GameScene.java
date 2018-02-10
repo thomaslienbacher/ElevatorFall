@@ -21,10 +21,13 @@ import dev.thomaslienbacher.elevatorfall.physics.PhysicsSpace;
  */
 public class GameScene extends Scene {
 
+	private static final float SCORE_MULTIPLIER = 20.0f;
+
 	private PhysicsSpace space;
 	private Ball ball;
 	private CollideBoxManager collideBoxManager;
     private Bounds bounds;
+	private float score = 0;
 
 	//debug
 	Box2DDebugRenderer renderer;
@@ -63,18 +66,15 @@ public class GameScene extends Scene {
 		if(Game.DEBUG) {
 			batch.end();
 			batch.begin();
-			try {
-				renderer.render(space.get(), Game.getCam().combined.cpy().scl(Data.MTR_2_PXL));
-			}
-			catch(Exception e) {
-				//yeah...
-			}
+			renderer.render(space.get(), Game.getCam().combined.cpy().scl(Data.MTR_2_PXL));
+			batch.end();
+			batch.begin();
 		}
 	}
 	
 	@Override
 	public void renderGUI(SpriteBatch batch){
-		Fonts.getMorris(100).render(batch, "Defender", 10, 110, Color.BLACK);
+		Fonts.getMorris(100).render(batch, "" + (int) Math.floor(score), 10, 115, Color.BLACK);
 	}
 
 	@Override
@@ -82,6 +82,8 @@ public class GameScene extends Scene {
 		space.step(delta, Data.VELOCITY_ITER, Data.POSITION_ITER);
 		ball.update(delta);
 		collideBoxManager.update(delta);
+
+		score += delta * SCORE_MULTIPLIER;
 	}
 
 	@Override
@@ -94,9 +96,17 @@ public class GameScene extends Scene {
 		}
 	}
 
+	public void onDeath(){
+		int s = (int) Math.floor(score);
+		Game.setHighscore(s > Game.getHighscore() ? s : Game.getHighscore());
+		Game.getMenuScene().switchTo();
+		reset();
+	}
+
 	public void reset() {
 		ball.reset();
 		collideBoxManager.reset();
+		score = 0;
 	}
 
 	@Override
