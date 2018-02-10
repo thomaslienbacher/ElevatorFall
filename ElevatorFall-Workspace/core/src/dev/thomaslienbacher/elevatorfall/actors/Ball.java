@@ -51,12 +51,12 @@ public class Ball extends PhysicsActor {
     }
 
     public void checkTouchUp(Vector2 screen) {
-        if(screen.x < Game.WIDTH / 2) leftThrust = true;
-        if(screen.x > Game.WIDTH / 2) rightThrust = true;
+        if(screen.x < Game.WIDTH / 2) leftThrust = false;
+        if(screen.x > Game.WIDTH / 2) rightThrust = false;
     }
 
     public void checkTouchDown(Vector2 screen) {
-        if(screen.x < Game.WIDTH / 2) leftThrust = false;
-        if(screen.x > Game.WIDTH / 2) rightThrust = false;
+        if(screen.x < Game.WIDTH / 2) leftThrust = true;
+        if(screen.x > Game.WIDTH / 2) rightThrust = true;
     }
 }
