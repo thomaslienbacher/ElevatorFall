@@ -31,7 +31,6 @@ public class Data {
 
     //actors
     public static final String BALL_TEXTURE = "actors/ball.png";
-    public static final String CONTROLBAR_TEXTURE = "actors/controlbar.png";
 
     //fonts
     public static final String FONT_LONDON = "fonts/LondonTwo.ttf";
