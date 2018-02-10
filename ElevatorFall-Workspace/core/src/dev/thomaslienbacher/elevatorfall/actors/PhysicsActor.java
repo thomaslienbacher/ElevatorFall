@@ -14,8 +14,8 @@ public abstract class PhysicsActor{
     protected float scale = 1;
     protected PhysicsBody body;
 
-    public PhysicsActor(boolean canRotate){
-        body = new PhysicsBody(canRotate);
+    public PhysicsActor(boolean canRotate, String userdata){
+        body = new PhysicsBody(canRotate, userdata);
     }
 
     public abstract void update(float delta);

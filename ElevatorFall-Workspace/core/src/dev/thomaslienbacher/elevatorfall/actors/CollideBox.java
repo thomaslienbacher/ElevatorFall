@@ -16,12 +16,13 @@ import dev.thomaslienbacher.elevatorfall.utils.Utils;
  */
 public class CollideBox extends PhysicsActor {
 
+    public static final String USERDATA = "COLLIDEBOX";
     private static final float SPEED = 300.0f;
 
     private Sprite sprite;
 
     public CollideBox(PhysicsSpace space, Texture tex, float x){
-        super(false);
+        super(false, USERDATA);
         Utils.setLinearFilter(tex);
         this.sprite = new Sprite(tex);
 

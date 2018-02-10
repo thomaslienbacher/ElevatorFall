@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import dev.thomaslienbacher.elevatorfall.Game;
 import dev.thomaslienbacher.elevatorfall.actors.Ball;
+import dev.thomaslienbacher.elevatorfall.actors.Bounds;
 import dev.thomaslienbacher.elevatorfall.actors.CollideBoxManager;
 import dev.thomaslienbacher.elevatorfall.assets.Data;
 import dev.thomaslienbacher.elevatorfall.assets.Fonts;
@@ -23,6 +24,7 @@ public class GameScene extends Scene {
 	private PhysicsSpace space;
 	private Ball ball;
 	private CollideBoxManager collideBoxManager;
+    private Bounds bounds;
 
 	//debug
 	Box2DDebugRenderer renderer;
@@ -42,6 +44,7 @@ public class GameScene extends Scene {
 		space = new PhysicsSpace(Data.GRAVITY, new PhysicsContactListener());
 		ball = new Ball(space, (Texture) assetManager.get(Data.BALL_TEXTURE));
 		collideBoxManager = new CollideBoxManager(space, (Texture) assetManager.get(Data.COLLIDEBOX_TEXTURE));
+        bounds = new Bounds(space);
 
 		//debug
 		if(Game.DEBUG) {
@@ -145,5 +148,9 @@ public class GameScene extends Scene {
 
 	public Ball getBall() {
 		return ball;
+	}
+
+	public CollideBoxManager getCollideBoxManager() {
+		return collideBoxManager;
 	}
 }

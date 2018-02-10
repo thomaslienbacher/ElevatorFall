@@ -19,7 +19,9 @@ import dev.thomaslienbacher.elevatorfall.utils.Utils;
  */
 public class Ball extends PhysicsActor {
 
-    private static final float THRUST = 1000.0f;
+    public static final String USERDATA = "BALL";
+    public static final float START_Y = Game.HEIGHT / 2 + 200.0f;
+    private static final float THRUST = 1300.0f;
 
     private Sprite sprite;
     private boolean dead = false;
@@ -27,12 +29,13 @@ public class Ball extends PhysicsActor {
     private boolean rightThrust = false;
 
     public Ball(PhysicsSpace space, Texture tex){
-        super(false);
+        super(false, USERDATA);
         Utils.setLinearFilter(tex);
         this.sprite = new Sprite(tex);
 
-        body.initAsCircle(space, BodyDef.BodyType.DynamicBody, new Vector2(Game.WIDTH / 2, Game.HEIGHT / 2), Data.FRICTION_DYNAMIC, sprite.getWidth() / 2);
+        body.initAsCircle(space, BodyDef.BodyType.DynamicBody, new Vector2(Game.WIDTH / 2, START_Y), Data.FRICTION_DYNAMIC, sprite.getWidth() / 2);
         body.setLinearVelocity(Vector2.Zero);
+        body.setRestitution(0.2f);
     }
 
     @Override

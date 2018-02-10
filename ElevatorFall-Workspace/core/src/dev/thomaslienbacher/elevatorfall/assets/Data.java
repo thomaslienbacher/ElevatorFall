@@ -13,11 +13,11 @@ public class Data {
     //constants
     public static final float PXL_2_MTR = 0.1f;
     public static final float MTR_2_PXL = 1 / PXL_2_MTR;
-    public static final float FRICTION_DYNAMIC = 0.2f;
-    public static final float FRICTION_STATIC = 0.2f;
+    public static final float FRICTION_DYNAMIC = 0.3f;
+    public static final float FRICTION_STATIC = 0.3f;
     public static final int VELOCITY_ITER = 4;
     public static final int POSITION_ITER = 2;
-    public static final Vector2 GRAVITY = Vector2.Zero;
+    public static final Vector2 GRAVITY = new Vector2(0, -170);
 
     //misc
     public static final String DEV_LOGO = "logo.png";
