@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import dev.thomaslienbacher.elevatorfall.Game;
+import dev.thomaslienbacher.elevatorfall.actors.Background;
 import dev.thomaslienbacher.elevatorfall.actors.Ball;
 import dev.thomaslienbacher.elevatorfall.actors.Bounds;
 import dev.thomaslienbacher.elevatorfall.actors.CollideBoxManager;
@@ -27,7 +28,8 @@ public class GameScene extends Scene {
 	private Ball ball;
 	private CollideBoxManager collideBoxManager;
     private Bounds bounds;
-	private float score = 0;
+    private Background background;
+    private float score = 0;
 
 	//debug
 	Box2DDebugRenderer renderer;
@@ -40,6 +42,7 @@ public class GameScene extends Scene {
 	public void loadAssets(AssetManager assetManager) {
 		assetManager.load(Data.BALL_TEXTURE, Texture.class);
 		assetManager.load(Data.COLLIDEBOX_TEXTURE, Texture.class);
+		assetManager.load(Data.BACKGROUND_TEXTURE, Texture.class);
 	}
 
 	@Override
@@ -48,6 +51,7 @@ public class GameScene extends Scene {
 		ball = new Ball(space, (Texture) assetManager.get(Data.BALL_TEXTURE));
 		collideBoxManager = new CollideBoxManager(space, (Texture) assetManager.get(Data.COLLIDEBOX_TEXTURE));
         bounds = new Bounds(space);
+        background = new Background((Texture) assetManager.get(Data.BACKGROUND_TEXTURE));
 
 		//debug
 		if(Game.DEBUG) {
@@ -59,8 +63,10 @@ public class GameScene extends Scene {
 
 	@Override
 	public void render(SpriteBatch batch) {
+		background.render(batch);
 		ball.render(batch);
 		collideBoxManager.render(batch);
+
 
 		//debug
 		if(Game.DEBUG) {
@@ -82,6 +88,7 @@ public class GameScene extends Scene {
 		space.step(delta, Data.VELOCITY_ITER, Data.POSITION_ITER);
 		ball.update(delta);
 		collideBoxManager.update(delta);
+        background.update(delta);
 
 		score += delta * SCORE_MULTIPLIER;
 	}
@@ -106,6 +113,7 @@ public class GameScene extends Scene {
 	public void reset() {
 		ball.reset();
 		collideBoxManager.reset();
+		background.reset();
 		score = 0;
 	}
 
@@ -179,4 +187,11 @@ public class GameScene extends Scene {
 		return bounds;
 	}
 
+    public Background getBackground() {
+        return background;
+    }
+
+    public float getScore() {
+        return score;
+    }
 }

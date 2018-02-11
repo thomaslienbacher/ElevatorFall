@@ -32,6 +32,7 @@ public class Data {
     //actors
     public static final String BALL_TEXTURE = "actors/ball.png";
     public static final String COLLIDEBOX_TEXTURE = "actors/collidebox.png";
+    public static final String BACKGROUND_TEXTURE = "actors/background.png";
 
     //fonts
     public static final String FONT_LONDON = "fonts/LondonTwo.ttf";

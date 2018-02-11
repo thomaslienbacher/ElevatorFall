@@ -51,7 +51,7 @@ public class Game extends ApplicationAdapter {
 	private static GameScene gameScene;
 
 	//debug
-	public final static boolean DEBUG = true;
+	public final static boolean DEBUG = false;
 
 	@Override
 	public void create () {
