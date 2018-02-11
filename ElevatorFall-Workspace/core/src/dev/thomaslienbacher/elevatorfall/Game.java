@@ -8,6 +8,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -38,11 +39,11 @@ public class Game extends ApplicationAdapter {
 	private static StretchViewport guiViewport;
 	private static OrthographicCamera cam;
 	private static OrthographicCamera guiCam;
-	private static GameStates gameState = GameStates.STARTUP;
+	private static GameStates gameState;
 	private static AssetManager assetManager;
-	private static boolean firstFrame = true;
+	private static boolean firstFrame;
 	private static Preferences preferences;
-	private static int highscore = 0;
+	private static int highscore;
 
 	//Scenes
 	private static StartupScene startupScene;
@@ -54,7 +55,12 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+		gameState = GameStates.STARTUP;
+		firstFrame = true;
+		highscore = 0;
+
 		assetManager = new AssetManager();
+		Texture.setAssetManager(assetManager);
 
 		//cam and viewport
 		cam = new OrthographicCamera();
@@ -124,13 +130,11 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void pause() {
-		super.pause();
+		saveGame();
 	}
 
 	@Override
-	public void resume() {
-		super.resume();
-	}
+	public void resume() {}
 
 	public void update(float delta){
 		if(delta > 0.2f) delta = 0.2f;
@@ -182,7 +186,10 @@ public class Game extends ApplicationAdapter {
 		batch.dispose();
 		Fonts.dispose();
 		assetManager.dispose();
+		saveGame();
+	}
 
+	public void saveGame() {
 		Game.getPreferences().putInteger("highscore", highscore);
 		preferences.flush();
 	}
