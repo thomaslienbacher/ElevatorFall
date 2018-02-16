@@ -17,7 +17,7 @@ import dev.thomaslienbacher.elevatorfall.utils.Utils;
 public class CollideBox extends PhysicsActor {
 
     public static final String USERDATA = "COLLIDEBOX";
-    public static final float SPEED = 400.0f;
+    public static final float SPEED = 800.0f;
 
     private Sprite sprite;
 

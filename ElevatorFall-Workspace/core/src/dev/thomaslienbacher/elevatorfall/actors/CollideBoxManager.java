@@ -15,8 +15,8 @@ import dev.thomaslienbacher.elevatorfall.utils.Utils;
  */
 public class CollideBoxManager {
 
-    private static final float SPAWN_TIME = 1.5f;
-    private static final float START_TIME = 2.0f;
+    private static final float SPAWN_TIME = 1.3f;
+    private static final float START_TIME = 1.8f;
     private static final int SPAWN_POSITIONS = 7;
 
     private LinkedList<CollideBox> collideBoxes;
