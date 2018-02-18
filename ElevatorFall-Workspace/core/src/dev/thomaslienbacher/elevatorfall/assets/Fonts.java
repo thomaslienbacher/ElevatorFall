@@ -2,9 +2,12 @@ package dev.thomaslienbacher.elevatorfall.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import dev.thomaslienbacher.elevatorfall.gui.Font;
+import dev.thomaslienbacher.elevatorfall.utils.MethodContainer;
+import dev.thomaslienbacher.elevatorfall.utils.RunnableContainer;
 
 import java.util.HashMap;
 
@@ -15,87 +18,60 @@ import java.util.HashMap;
  */
 public class Fonts {
 
-    //font sizes: 20, 40, 60, 80, 100
     private static final int SIZE_INCREMENT = 20;
-    private static final int AMOUNT = 5;
+    private static final int AMOUNT = 10;
+    private static final int SIZE_START = 100;
 
-    public static class FontNotFoundException extends Exception {
-        public FontNotFoundException() {}
-
-        public FontNotFoundException(String message) {
+    private static class FontNotFoundException extends Exception {
+        private FontNotFoundException(String message) {
             super(message);
-        }
-
-        public FontNotFoundException(String message, Throwable cause) {
-            super(message, cause);
-        }
-
-        public FontNotFoundException(Throwable cause) {
-            super(cause);
         }
     }
 
-    private static HashMap<Integer, Font> londonFonts = new HashMap<Integer, Font>();
-    private static HashMap<Integer, Font> morrisFonts = new HashMap<Integer, Font>();
-    private static volatile boolean loaded = false;
+    private volatile static HashMap<Integer, Font> fonts = new HashMap<Integer, Font>();
+    private static FreeTypeFontGenerator generator;
+    private static int currentSize = SIZE_START;
+    private static boolean finishedLoading = false;
 
     public static void loadFonts() {
+        generator = new FreeTypeFontGenerator(Gdx.files.internal(Data.FONT_LONDON));
+        load(currentSize);
+    }
+
+    private static void load(final int size){
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
-                Fonts.loadThread();
-                loaded = true;
+                if(size > SIZE_START + AMOUNT * SIZE_INCREMENT) {
+                    finishedLoading = true;
+                    return;
+                }
+
+                FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+                parameter.genMipMaps = false;
+                parameter.minFilter = Texture.TextureFilter.Linear;
+                parameter.magFilter = Texture.TextureFilter.Linear;
+                parameter.size = size;
+
+                fonts.put(size, new Font(generator.generateFont(parameter)));
+
+                load(size + SIZE_INCREMENT);
             }
         });
+
     }
 
-    private static void loadThread(){
-        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-        parameter.genMipMaps = false;
-        parameter.minFilter = Texture.TextureFilter.Linear;
-        parameter.magFilter = Texture.TextureFilter.Linear;
-
-        FreeTypeFontGenerator londonGen = new FreeTypeFontGenerator(Gdx.files.internal(Data.FONT_LONDON));
-
-        for(int s = SIZE_INCREMENT; s <= SIZE_INCREMENT * AMOUNT; s += SIZE_INCREMENT){
-            parameter.size = s;
-            londonFonts.put(s, new Font(londonGen.generateFont(parameter)));
-        }
-
-        londonGen.dispose();
-
-        FreeTypeFontGenerator morrisGen = new FreeTypeFontGenerator(Gdx.files.internal(Data.FONT_MORRIS));
-
-        for(int s = SIZE_INCREMENT; s <= SIZE_INCREMENT * AMOUNT; s += SIZE_INCREMENT){
-            parameter.size = s;
-            morrisFonts.put(s, new Font(morrisGen.generateFont(parameter)));
-        }
-
-        morrisGen.dispose();
-
-        loaded = true;
-    }
-
-    public static Font getLondon(int size){
+    public static Font get(int size){
         Font f = null;
 
         try {
-            f = londonFonts.get(size);
-            if(f == null) throw new FontNotFoundException("Couldn't find London font with size: " + size);
-        }
-        catch (FontNotFoundException e){
-            e.printStackTrace();
-        }
+            while(f == null) {
+                if(size <= 0) break;
+                f = fonts.get(size);
+                size -= SIZE_INCREMENT;
+            }
 
-        return f;
-    }
-
-    public static Font getMorris(int size){
-        Font f = null;
-
-        try {
-            f = morrisFonts.get(size);
-            if(f == null) throw new FontNotFoundException("Couldn't find Morris font with size: " + size);
+            if(f == null) throw new FontNotFoundException("Couldn't find font with size: " + size);
         }
         catch (FontNotFoundException e){
             e.printStackTrace();
@@ -105,16 +81,18 @@ public class Fonts {
     }
 
     public static void dispose() {
-        for(Font f : londonFonts.values()){
+        for(Font f : fonts.values()){
             f.getBitmapFont().dispose();
         }
 
-        for(Font f : morrisFonts.values()){
-            f.getBitmapFont().dispose();
-        }
+        generator.dispose();
     }
 
-    public static boolean isLoaded() {
-        return loaded;
+    public static boolean finishedLoading() {
+        return finishedLoading;
+    }
+
+    public static HashMap<Integer, Font> getFonts() {
+        return fonts;
     }
 }

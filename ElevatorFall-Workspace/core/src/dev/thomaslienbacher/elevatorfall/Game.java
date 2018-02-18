@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import dev.thomaslienbacher.elevatorfall.assets.Fonts;
@@ -140,6 +141,9 @@ public class Game extends ApplicationAdapter {
 	public void update(float delta){
 		if(delta > 0.2f) delta = 0.2f;
 
+		Gdx.app.log("fonts", Fonts.getFonts().toString());
+		Gdx.app.log("am", "> " + assetManager.getProgress());
+
 		if(firstFrame){
 			//scenes
 			menuScene = new MenuScene(GameStates.MENU);
@@ -160,8 +164,7 @@ public class Game extends ApplicationAdapter {
 		if(gameState == GameStates.STARTUP){
 			startupScene.update(delta);
 			assetManager.update();
-			if(assetManager.getProgress() >= 1 && startupScene.logoTime >= StartupScene.LOGO_DISLAY_TIME
-					&& Fonts.isLoaded()){
+			if(assetManager.getProgress() >= 1 && startupScene.logoTime >= StartupScene.LOGO_DISLAY_TIME){
 				menuScene.switchTo();
 				startupScene.dispose();
 

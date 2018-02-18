@@ -80,7 +80,7 @@ public class GameScene extends Scene {
 	
 	@Override
 	public void renderGUI(SpriteBatch batch){
-		Fonts.getMorris(100).render(batch, "" + (int) Math.floor(score), 10, 115, Color.BLACK);
+		//Fonts.get(100).render(batch, "" + (int) Math.floor(score), 10, 115, Color.BLACK);
 	}
 
 	@Override

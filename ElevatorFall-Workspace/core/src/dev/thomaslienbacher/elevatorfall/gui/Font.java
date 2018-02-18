@@ -28,6 +28,13 @@ public class Font {
 		bitmapFont.setColor(Color.WHITE);
 	}
 
+	public void renderCentered(SpriteBatch batch, String text, float x, float y, Color color){
+		bitmapFont.setColor(color);
+		// TODO: 18.02.2018 implement
+		bitmapFont.draw(batch, text, x, y);
+		bitmapFont.setColor(Color.WHITE);
+	}
+
 	public BitmapFont getBitmapFont() {
 		return bitmapFont;
 	}
