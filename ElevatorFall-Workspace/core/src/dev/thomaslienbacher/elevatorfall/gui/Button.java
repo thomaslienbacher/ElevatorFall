@@ -130,5 +130,12 @@ public class Button {
 
     public void setPosition(Vector2 position) {
         this.position = position;
+        hitbox.setPosition(position);
+    }
+
+    public void setPosition(float x, float y) {
+        this.position.x = x;
+        this.position.y = y;
+        hitbox.setPosition(x, y);
     }
 }

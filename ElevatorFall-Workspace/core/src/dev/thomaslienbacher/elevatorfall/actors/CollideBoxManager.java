@@ -1,6 +1,5 @@
 package dev.thomaslienbacher.elevatorfall.actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -8,7 +7,6 @@ import java.util.LinkedList;
 
 import dev.thomaslienbacher.elevatorfall.Game;
 import dev.thomaslienbacher.elevatorfall.physics.PhysicsSpace;
-import dev.thomaslienbacher.elevatorfall.utils.Utils;
 
 /**
  * @author Thomas Lienbacher
@@ -34,7 +32,7 @@ public class CollideBoxManager {
         spawnPositions = new float[SPAWN_POSITIONS];
 
         for(int i = 0; i < spawnPositions.length; i++) {
-            spawnPositions[i] = (int) Math.round((float)i * ((float)(Game.WIDTH - collideBoxTex.getWidth()) / (float)(SPAWN_POSITIONS - 1)));
+            spawnPositions[i] = Math.round((float)i * ((float)(Game.WIDTH - collideBoxTex.getWidth()) / (float)(SPAWN_POSITIONS - 1)));
         }
     }
 

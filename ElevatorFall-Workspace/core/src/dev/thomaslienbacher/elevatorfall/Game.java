@@ -32,6 +32,7 @@ public class Game extends ApplicationAdapter {
 	public static final int WIDTH = 1080;
 	public static final int HEIGHT = WIDTH / 9 * 16;
 	public static final float ASPECT_RATIO = (float)WIDTH / (float)HEIGHT;
+	public static final String APP_NAME = "Falling";
 	public static final String PREFERENCES = "prefs";
 
 	private static SpriteBatch batch;

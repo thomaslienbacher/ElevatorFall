@@ -34,12 +34,13 @@ public class MenuScene extends Scene {
 	public void create(AssetManager assetManager) {
 		playButton = new TextButton((Texture) assetManager.get(Data.MENU_BUTTON_UP),
 				(Texture) assetManager.get(Data.MENU_BUTTON_DOWN),
-				new Vector2(100, 100), "Play", Fonts.getLondon(80), Color.BLACK, new Task(){
+				Vector2.Zero, "Play", Fonts.getLondon(100), Color.BLACK, new Task(){
 					@Override
 					public void run() {
 						Game.getGameScene().switchTo();
 					}
 		});
+		playButton.setPosition(Game.WIDTH / 2 - playButton.getSpriteUp().getWidth() / 2, Game.HEIGHT / 2 - 500);
 	}
 
 	@Override

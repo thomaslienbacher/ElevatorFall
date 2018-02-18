@@ -18,7 +18,7 @@ public class DesktopLauncher {
 
 		config.height = Game.HEIGHT;
 		config.width = Game.WIDTH;
-		config.title = "Elevator Fall Desktop";
+		config.title = Game.APP_NAME + " Desktop";
 		config.samples = 4;
 		config.allowSoftwareMode = false;
 		config.fullscreen = false;
