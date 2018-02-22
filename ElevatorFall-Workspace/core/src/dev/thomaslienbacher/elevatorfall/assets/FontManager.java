@@ -6,25 +6,22 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import dev.thomaslienbacher.elevatorfall.gui.Font;
-import dev.thomaslienbacher.elevatorfall.utils.MethodContainer;
-import dev.thomaslienbacher.elevatorfall.utils.RunnableContainer;
-
-import java.util.HashMap;
 
 /**
  * This class contains and manages all fonts used in the game.
  *
  * @author Thomas Lienbacher
  */
-public class Fonts {
+public class FontManager {
 
-    private static final int BASE_SIZE = 100;
+    private static final int BASE_SIZE = 200;
 
     private static FreeTypeFontGenerator generator;
     private static BitmapFont font;
 
     public static void loadFonts() {
-        generator = new FreeTypeFontGenerator(Gdx.files.internal(Data.FONT_LONDON));
+        FreeTypeFontGenerator.setMaxTextureSize(2048);
+        generator = new FreeTypeFontGenerator(Gdx.files.internal(Data.FONT));
         font = load(generator, BASE_SIZE);
     }
 

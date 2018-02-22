@@ -12,10 +12,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import dev.thomaslienbacher.elevatorfall.assets.Fonts;
+import dev.thomaslienbacher.elevatorfall.assets.FontManager;
 import dev.thomaslienbacher.elevatorfall.scene.GameScene;
 import dev.thomaslienbacher.elevatorfall.scene.GameStates;
 import dev.thomaslienbacher.elevatorfall.scene.MenuScene;
@@ -147,7 +146,7 @@ public class Game extends ApplicationAdapter {
 			gameScene = new GameScene(GameStates.GAME);
 
 			//load all assets
-			Fonts.loadFonts();
+			FontManager.loadFonts();
 			menuScene.loadAssets(assetManager);
 			gameScene.loadAssets(assetManager);
 
@@ -185,7 +184,7 @@ public class Game extends ApplicationAdapter {
 		gameScene.dispose();
 
 		batch.dispose();
-		Fonts.dispose();
+		FontManager.dispose();
 		assetManager.dispose();
 		saveGame();
 	}

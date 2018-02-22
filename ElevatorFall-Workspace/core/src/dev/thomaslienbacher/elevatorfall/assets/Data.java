@@ -25,9 +25,6 @@ public class Data {
     //gui
     public static final String MENU_BUTTON_UP = "gui/buttons/menu_button_up.png";
     public static final String MENU_BUTTON_DOWN = "gui/buttons/menu_button_down.png";
-    public static final String LOADING_GAUGE = "loading/loading_gauge.png";
-    public static final String LOADING_BACKGROUND = "loading/loading_background.png";
-    public static final String LOADING_ANIMATION = "loading/loading_animation.pack";
 
     //actors
     public static final String BALL_TEXTURE = "actors/ball.png";
@@ -35,6 +32,5 @@ public class Data {
     public static final String BACKGROUND_TEXTURE = "actors/background.png";
 
     //fonts
-    public static final String FONT_LONDON = "fonts/LondonTwo.ttf";
-    public static final String FONT_MORRIS = "fonts/MorrisRomanBlack.ttf";
+    public static final String FONT = "fonts/DroidSansMono.ttf";
 }

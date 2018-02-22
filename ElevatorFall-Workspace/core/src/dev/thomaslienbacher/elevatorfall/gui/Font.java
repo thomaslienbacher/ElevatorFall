@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Logger;
 import dev.thomaslienbacher.elevatorfall.utils.Utils;
 
 /**
- *	This class is used to render Fonts and manage single Fonts.
+ *	This class is used to render FontManager and manage single FontManager.
  * 
  * @author Thomas Lienbacher
  */

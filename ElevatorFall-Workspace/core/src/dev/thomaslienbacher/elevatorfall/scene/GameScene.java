@@ -13,7 +13,7 @@ import dev.thomaslienbacher.elevatorfall.actors.Ball;
 import dev.thomaslienbacher.elevatorfall.actors.Bounds;
 import dev.thomaslienbacher.elevatorfall.actors.CollideBoxManager;
 import dev.thomaslienbacher.elevatorfall.assets.Data;
-import dev.thomaslienbacher.elevatorfall.assets.Fonts;
+import dev.thomaslienbacher.elevatorfall.assets.FontManager;
 import dev.thomaslienbacher.elevatorfall.physics.PhysicsContactListener;
 import dev.thomaslienbacher.elevatorfall.physics.PhysicsSpace;
 
@@ -80,7 +80,7 @@ public class GameScene extends Scene {
 	
 	@Override
 	public void renderGUI(SpriteBatch batch){
-		Fonts.get(100).render(batch, "" + (int) Math.floor(score), 10, 115, Color.BLACK);
+		FontManager.get(100).render(batch, "" + (int) Math.floor(score), 10, 115, Color.BLACK);
 	}
 
 	@Override

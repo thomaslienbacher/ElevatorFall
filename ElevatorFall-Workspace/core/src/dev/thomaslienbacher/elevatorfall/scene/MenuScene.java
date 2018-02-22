@@ -9,9 +9,8 @@ import com.badlogic.gdx.utils.Timer.Task;
 
 import dev.thomaslienbacher.elevatorfall.Game;
 import dev.thomaslienbacher.elevatorfall.assets.Data;
-import dev.thomaslienbacher.elevatorfall.assets.Fonts;
+import dev.thomaslienbacher.elevatorfall.assets.FontManager;
 import dev.thomaslienbacher.elevatorfall.gui.TextButton;
-import dev.thomaslienbacher.elevatorfall.utils.Utils;
 
 /**
  * @author Thomas Lienbacher
@@ -34,7 +33,7 @@ public class MenuScene extends Scene {
 	public void create(AssetManager assetManager) {
 		playButton = new TextButton((Texture) assetManager.get(Data.MENU_BUTTON_UP),
 				(Texture) assetManager.get(Data.MENU_BUTTON_DOWN),
-				Vector2.Zero, "Play", Fonts.get(110), Color.BLACK, new Task(){
+				Vector2.Zero, "Play", FontManager.get(110), Color.BLACK, new Task(){
 					@Override
 					public void run() {
 						Game.getGameScene().switchTo();
@@ -45,12 +44,12 @@ public class MenuScene extends Scene {
 
 	@Override
 	public void render(SpriteBatch batch) {
-		Fonts.get(100).render(batch, "Highscore: " + Game.getHighscore(), 10, Game.HEIGHT / 2, Color.BLACK);
+		FontManager.get(100).render(batch, "Highscore: " + Game.getHighscore(), 10, Game.HEIGHT / 2, Color.BLACK);
 	}
 	
 	@Override
 	public void renderGUI(SpriteBatch batch){
-		Fonts.get(200).renderCentered(batch, Game.APP_NAME, Game.WIDTH / 2, Game.HEIGHT - 200, Color.BLACK);
+		FontManager.get(200).renderCentered(batch, Game.APP_NAME, Game.WIDTH / 2, Game.HEIGHT - 200, Color.BLACK);
 		playButton.render(batch);
 	}
 
