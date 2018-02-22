@@ -11,13 +11,15 @@ import dev.thomaslienbacher.elevatorfall.utils.Utils;
 public class PhysicsBody {
     private Body body;
     private boolean canRotate = false;
+    private String userdata;
 
     public PhysicsBody(){
-        this(false);
+        this(false, "");
     }
 
-    public PhysicsBody(boolean canRotate) {
+    public PhysicsBody(boolean canRotate, String userdata) {
         this.canRotate = canRotate;
+        this.userdata = userdata;
     }
 
     private void init(PhysicsSpace space, BodyDef.BodyType type, Vector2 position){
@@ -48,7 +50,7 @@ public class PhysicsBody {
         def.friction = friction;
 
         Fixture a = body.createFixture(def);
-        a.setUserData(this);
+        a.setUserData(userdata);
         shape.dispose();
     }
 
@@ -67,7 +69,7 @@ public class PhysicsBody {
         def.friction = friction;
 
         Fixture a = body.createFixture(def);
-        a.setUserData(this);
+        a.setUserData(userdata);
         shape.dispose();
     }
 
@@ -86,7 +88,7 @@ public class PhysicsBody {
         def.friction = friction;
 
         Fixture a = body.createFixture(def);
-        a.setUserData(this);
+        a.setUserData(userdata);
         shape.dispose();
     }
 
@@ -106,7 +108,7 @@ public class PhysicsBody {
         def.friction = friction;
 
         Fixture a = body.createFixture(def);
-        a.setUserData(this);
+        a.setUserData(userdata);
         shape.dispose();
     }
 
@@ -121,7 +123,7 @@ public class PhysicsBody {
         def.shape = shape;
 
         Fixture a = body.createFixture(def);
-        a.setUserData(this);
+        a.setUserData(userdata);
     }
 
     /**

@@ -4,15 +4,17 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import dev.thomaslienbacher.elevatorfall.assets.Fonts;
+import dev.thomaslienbacher.elevatorfall.assets.FontManager;
 import dev.thomaslienbacher.elevatorfall.scene.GameScene;
 import dev.thomaslienbacher.elevatorfall.scene.GameStates;
 import dev.thomaslienbacher.elevatorfall.scene.MenuScene;
@@ -30,15 +32,19 @@ public class Game extends ApplicationAdapter {
 	public static final int WIDTH = 1080;
 	public static final int HEIGHT = WIDTH / 9 * 16;
 	public static final float ASPECT_RATIO = (float)WIDTH / (float)HEIGHT;
+	public static final String APP_NAME = "Falling";
+	public static final String PREFERENCES = "prefs";
 
 	private static SpriteBatch batch;
 	private static StretchViewport viewport;
 	private static StretchViewport guiViewport;
 	private static OrthographicCamera cam;
 	private static OrthographicCamera guiCam;
-	private static GameStates gameState = GameStates.STARTUP;
+	private static GameStates gameState;
 	private static AssetManager assetManager;
-	private static boolean firstFrame = true;
+	private static boolean firstFrame;
+	private static Preferences preferences;
+	private static int highscore;
 
 	//Scenes
 	private static StartupScene startupScene;
@@ -46,11 +52,16 @@ public class Game extends ApplicationAdapter {
 	private static GameScene gameScene;
 
 	//debug
-	public final static boolean DEBUG = true;
+	public final static boolean DEBUG = false;
 
 	@Override
 	public void create () {
+		gameState = GameStates.STARTUP;
+		firstFrame = true;
+		highscore = 0;
+
 		assetManager = new AssetManager();
+		Texture.setAssetManager(assetManager);
 
 		//cam and viewport
 		cam = new OrthographicCamera();
@@ -118,6 +129,14 @@ public class Game extends ApplicationAdapter {
 		guiViewport.update(width, height);
 	}
 
+	@Override
+	public void pause() {
+		saveGame();
+	}
+
+	@Override
+	public void resume() {}
+
 	public void update(float delta){
 		if(delta > 0.2f) delta = 0.2f;
 
@@ -127,9 +146,13 @@ public class Game extends ApplicationAdapter {
 			gameScene = new GameScene(GameStates.GAME);
 
 			//load all assets
-			Fonts.loadFonts();
+			FontManager.loadFonts();
 			menuScene.loadAssets(assetManager);
 			gameScene.loadAssets(assetManager);
+
+			//load prefs
+			preferences = Gdx.app.getPreferences(PREFERENCES);
+			highscore = Game.getPreferences().getInteger("highscore", 0);
 
 			firstFrame = false;
 		}
@@ -137,8 +160,7 @@ public class Game extends ApplicationAdapter {
 		if(gameState == GameStates.STARTUP){
 			startupScene.update(delta);
 			assetManager.update();
-			if(assetManager.getProgress() >= 1 && startupScene.logoTime >= StartupScene.LOGO_DISLAY_TIME
-					&& Fonts.isLoaded()){
+			if(assetManager.getProgress() >= 1 && startupScene.logoTime >= StartupScene.LOGO_DISLAY_TIME){
 				menuScene.switchTo();
 				startupScene.dispose();
 
@@ -162,8 +184,14 @@ public class Game extends ApplicationAdapter {
 		gameScene.dispose();
 
 		batch.dispose();
-		Fonts.dispose();
+		FontManager.dispose();
 		assetManager.dispose();
+		saveGame();
+	}
+
+	public void saveGame() {
+		Game.getPreferences().putInteger("highscore", highscore);
+		preferences.flush();
 	}
 
 	public static Vector2 cameraUnproject(int screenX, int screenY) {
@@ -174,7 +202,7 @@ public class Game extends ApplicationAdapter {
 
 	public static Vector2 toScreenCoords(int screenX, int screenY) {
 		Vector2 vec = new Vector2();
-		vec.x = (float)screenX/ (float)Gdx.graphics.getWidth() * Game.WIDTH;
+		vec.x = (float)screenX / (float)Gdx.graphics.getWidth() * Game.WIDTH;
 		vec.y = -((float)screenY / (float)Gdx.graphics.getHeight() * Game.HEIGHT) + Game.HEIGHT;
 		return vec;
 	}
@@ -229,4 +257,15 @@ public class Game extends ApplicationAdapter {
 		return guiViewport;
 	}
 
+	public static Preferences getPreferences() {
+		return preferences;
+	}
+
+	public static int getHighscore() {
+		return highscore;
+	}
+
+	public static void setHighscore(int highscore) {
+		Game.highscore = highscore;
+	}
 }

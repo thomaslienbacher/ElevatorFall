@@ -28,8 +28,7 @@ public class TextButton extends Button {
         super.render(batch);
 
         if(!text.equalsIgnoreCase("")){
-            font.render(batch, text, position.x + width / 2 - Utils.calculateStringWidth(font, text) / 2,
-                    position.y + height / 2 + Utils.calculateStringHeight(font, text) / 2, fontColor);
+            font.renderCentered(batch, text, position.x + width / 2, position.y + height / 2, fontColor);
         }
     }
 

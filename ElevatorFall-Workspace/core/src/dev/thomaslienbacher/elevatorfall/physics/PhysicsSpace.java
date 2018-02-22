@@ -25,6 +25,10 @@ public class PhysicsSpace {
         return world;
     }
 
+    public void destroyBody(PhysicsBody body) {
+        world.destroyBody(body.get());
+    }
+
     public void dispose(){
         world.dispose();
     }
