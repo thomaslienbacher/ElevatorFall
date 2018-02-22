@@ -33,7 +33,7 @@ public class Utils {
     public static float calculateStringHeight(Font font, String string){
         GlyphLayout g = new GlyphLayout();
         g.setText(font.getBitmapFont(), string);
-        return g.height;
+        return g.height * font.getScale();//TODO debug: file bug report at libgdx repo
     }
     
     //replace string in every string in an array

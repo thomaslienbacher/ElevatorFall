@@ -141,9 +141,6 @@ public class Game extends ApplicationAdapter {
 	public void update(float delta){
 		if(delta > 0.2f) delta = 0.2f;
 
-		Gdx.app.log("fonts", Fonts.getFonts().toString());
-		Gdx.app.log("am", "> " + assetManager.getProgress());
-
 		if(firstFrame){
 			//scenes
 			menuScene = new MenuScene(GameStates.MENU);
@@ -206,7 +203,7 @@ public class Game extends ApplicationAdapter {
 
 	public static Vector2 toScreenCoords(int screenX, int screenY) {
 		Vector2 vec = new Vector2();
-		vec.x = (float)screenX/ (float)Gdx.graphics.getWidth() * Game.WIDTH;
+		vec.x = (float)screenX / (float)Gdx.graphics.getWidth() * Game.WIDTH;
 		vec.y = -((float)screenY / (float)Gdx.graphics.getHeight() * Game.HEIGHT) + Game.HEIGHT;
 		return vec;
 	}

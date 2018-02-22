@@ -18,81 +18,32 @@ import java.util.HashMap;
  */
 public class Fonts {
 
-    private static final int SIZE_INCREMENT = 20;
-    private static final int AMOUNT = 10;
-    private static final int SIZE_START = 100;
+    private static final int BASE_SIZE = 100;
 
-    private static class FontNotFoundException extends Exception {
-        private FontNotFoundException(String message) {
-            super(message);
-        }
-    }
-
-    private volatile static HashMap<Integer, Font> fonts = new HashMap<Integer, Font>();
     private static FreeTypeFontGenerator generator;
-    private static int currentSize = SIZE_START;
-    private static boolean finishedLoading = false;
+    private static BitmapFont font;
 
     public static void loadFonts() {
         generator = new FreeTypeFontGenerator(Gdx.files.internal(Data.FONT_LONDON));
-        load(currentSize);
+        font = load(generator, BASE_SIZE);
     }
 
-    private static void load(final int size){
-        Gdx.app.postRunnable(new Runnable() {
-            @Override
-            public void run() {
-                if(size > SIZE_START + AMOUNT * SIZE_INCREMENT) {
-                    finishedLoading = true;
-                    return;
-                }
+    private static BitmapFont load(FreeTypeFontGenerator generator, final int size){
+        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+        parameter.genMipMaps = true;
+        parameter.minFilter = Texture.TextureFilter.Linear;
+        parameter.magFilter = Texture.TextureFilter.Linear;
+        parameter.size = size;
 
-                FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-                parameter.genMipMaps = false;
-                parameter.minFilter = Texture.TextureFilter.Linear;
-                parameter.magFilter = Texture.TextureFilter.Linear;
-                parameter.size = size;
-
-                fonts.put(size, new Font(generator.generateFont(parameter)));
-
-                load(size + SIZE_INCREMENT);
-            }
-        });
-
+        return generator.generateFont(parameter);
     }
 
     public static Font get(int size){
-        Font f = null;
-
-        try {
-            while(f == null) {
-                if(size <= 0) break;
-                f = fonts.get(size);
-                size -= SIZE_INCREMENT;
-            }
-
-            if(f == null) throw new FontNotFoundException("Couldn't find font with size: " + size);
-        }
-        catch (FontNotFoundException e){
-            e.printStackTrace();
-        }
-
-        return f;
+        return new Font(font, (float)size / (float)BASE_SIZE);
     }
 
     public static void dispose() {
-        for(Font f : fonts.values()){
-            f.getBitmapFont().dispose();
-        }
-
+        font.dispose();
         generator.dispose();
-    }
-
-    public static boolean finishedLoading() {
-        return finishedLoading;
-    }
-
-    public static HashMap<Integer, Font> getFonts() {
-        return fonts;
     }
 }

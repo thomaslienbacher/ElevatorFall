@@ -34,7 +34,7 @@ public class MenuScene extends Scene {
 	public void create(AssetManager assetManager) {
 		playButton = new TextButton((Texture) assetManager.get(Data.MENU_BUTTON_UP),
 				(Texture) assetManager.get(Data.MENU_BUTTON_DOWN),
-				Vector2.Zero, "Play", Fonts.get(140), Color.BLACK, new Task(){
+				Vector2.Zero, "Play", Fonts.get(110), Color.BLACK, new Task(){
 					@Override
 					public void run() {
 						Game.getGameScene().switchTo();
@@ -45,14 +45,13 @@ public class MenuScene extends Scene {
 
 	@Override
 	public void render(SpriteBatch batch) {
-		//Fonts.get(100).render(batch, "Highscore: " + Game.getHighscore(), 10, Game.HEIGHT / 2, Color.BLACK);
+		Fonts.get(100).render(batch, "Highscore: " + Game.getHighscore(), 10, Game.HEIGHT / 2, Color.BLACK);
 	}
 	
 	@Override
 	public void renderGUI(SpriteBatch batch){
-		//Fonts.get(200).render(batch, Game.APP_NAME, Game.WIDTH / 2 - Utils.calculateStringWidth(Fonts.get(200), Game.APP_NAME) / 2,
-		//		Game.HEIGHT - 60, Color.BLACK);
-		//playButton.render(batch);
+		Fonts.get(200).renderCentered(batch, Game.APP_NAME, Game.WIDTH / 2, Game.HEIGHT - 200, Color.BLACK);
+		playButton.render(batch);
 	}
 
 	@Override
