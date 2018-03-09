@@ -1,5 +1,6 @@
 package dev.thomaslienbacher.elevatorfall.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,12 +28,12 @@ public class CollideBox extends PhysicsActor {
         this.sprite = new Sprite(tex);
 
         body.initAsBox(space, BodyDef.BodyType.KinematicBody, new Vector2(x, -100 - sprite.getHeight()), Data.FRICTION_DYNAMIC, sprite.getWidth(), sprite.getHeight());
-        body.setLinearVelocity(new Vector2(0, SPEED));
+        body.setLinearVelocity(new Vector2(0, SPEED * CollideBoxManager.SPEED_MULTIPLIER));
     }
 
     @Override
     public void update(float delta) {
-
+        body.setLinearVelocity(new Vector2(0, SPEED * CollideBoxManager.SPEED_MULTIPLIER));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package dev.thomaslienbacher.elevatorfall.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -16,6 +17,8 @@ public class CollideBoxManager {
     private static final float SPAWN_TIME = 1.3f;
     private static final float START_TIME = 1.8f;
     private static final int SPAWN_POSITIONS = 7;
+
+    public static float SPEED_MULTIPLIER = 1.0f;
 
     private LinkedList<CollideBox> collideBoxes;
     private PhysicsSpace space;
@@ -53,6 +56,8 @@ public class CollideBoxManager {
             spawn();
             time = SPAWN_TIME;
         }
+
+        SPEED_MULTIPLIER += 0.01f * delta;
     }
 
     public void render(SpriteBatch batch) {
@@ -69,6 +74,7 @@ public class CollideBoxManager {
 
         collideBoxes.clear();
         time = START_TIME;
+        SPEED_MULTIPLIER = 1.0f;
     }
 
 }

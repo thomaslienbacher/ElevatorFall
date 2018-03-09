@@ -90,7 +90,7 @@ public class GameScene extends Scene {
 		collideBoxManager.update(delta);
         background.update(delta);
 
-		score += delta * SCORE_MULTIPLIER;
+		score += delta * SCORE_MULTIPLIER * CollideBoxManager.SPEED_MULTIPLIER;
 	}
 
 	@Override
