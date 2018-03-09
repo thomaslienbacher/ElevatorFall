@@ -25,6 +25,7 @@ public class CollideBoxManager {
     private Texture collideBoxTex;
     private float time;
     private float[] spawnPositions;
+    private int lastPos = -1;
 
     public CollideBoxManager(PhysicsSpace space, Texture collideBoxTex) {
         this.space = space;
@@ -65,7 +66,11 @@ public class CollideBoxManager {
     }
 
     private void spawn(){
-        CollideBox cb = new CollideBox(space, collideBoxTex, spawnPositions[(int) Math.floor(Math.random() * spawnPositions.length)]);
+        int pos = (int) Math.floor(Math.random() * spawnPositions.length);
+        while(lastPos == pos) pos = (int) Math.floor(Math.random() * spawnPositions.length);
+        lastPos = pos;
+
+        CollideBox cb = new CollideBox(space, collideBoxTex, spawnPositions[pos]);
         collideBoxes.add(cb);
     }
 

@@ -13,8 +13,8 @@ public class Data {
     //constants
     public static final float PXL_2_MTR = 0.05f;
     public static final float MTR_2_PXL = 1 / PXL_2_MTR;
-    public static final float FRICTION_DYNAMIC = 0.5f;
-    public static final float FRICTION_STATIC = 0.5f;
+    public static final float FRICTION_DYNAMIC = 0.45f;
+    public static final float FRICTION_STATIC = 0.45f;
     public static final int VELOCITY_ITER = 6;
     public static final int POSITION_ITER = 3;
     public static final Vector2 GRAVITY = new Vector2(0, -800);

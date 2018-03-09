@@ -80,7 +80,7 @@ public class GameScene extends Scene {
 	
 	@Override
 	public void renderGUI(SpriteBatch batch){
-		FontManager.get(100).render(batch, "" + (int) Math.floor(score), 10, 115, Color.BLACK);
+		FontManager.get(100).renderCentered(batch, String.valueOf((int) Math.floor(score)), Game.WIDTH / 2, Game.HEIGHT - 70, Color.BLACK);
 	}
 
 	@Override
