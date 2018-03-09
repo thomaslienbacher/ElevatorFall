@@ -1,5 +1,6 @@
 package dev.thomaslienbacher.elevatorfall.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -17,11 +18,14 @@ public class CollideBoxManager {
     private static final float START_TIME = 1.8f;
     private static final int SPAWN_POSITIONS = 7;
 
+    public static float SPEED_MULTIPLIER = 1.0f;
+
     private LinkedList<CollideBox> collideBoxes;
     private PhysicsSpace space;
     private Texture collideBoxTex;
     private float time;
     private float[] spawnPositions;
+    private int lastPos = -1;
 
     public CollideBoxManager(PhysicsSpace space, Texture collideBoxTex) {
         this.space = space;
@@ -53,6 +57,8 @@ public class CollideBoxManager {
             spawn();
             time = SPAWN_TIME;
         }
+
+        SPEED_MULTIPLIER += 0.01f * delta;
     }
 
     public void render(SpriteBatch batch) {
@@ -60,7 +66,11 @@ public class CollideBoxManager {
     }
 
     private void spawn(){
-        CollideBox cb = new CollideBox(space, collideBoxTex, spawnPositions[(int) Math.floor(Math.random() * spawnPositions.length)]);
+        int pos = (int) Math.floor(Math.random() * spawnPositions.length);
+        while(lastPos == pos) pos = (int) Math.floor(Math.random() * spawnPositions.length);
+        lastPos = pos;
+
+        CollideBox cb = new CollideBox(space, collideBoxTex, spawnPositions[pos]);
         collideBoxes.add(cb);
     }
 
@@ -69,6 +79,7 @@ public class CollideBoxManager {
 
         collideBoxes.clear();
         time = START_TIME;
+        SPEED_MULTIPLIER = 1.0f;
     }
 
 }

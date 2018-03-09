@@ -39,7 +39,7 @@ public class Background extends Actor {
         float smallest = Game.HEIGHT;
 
         for(int i = 0; i < amount; i++) {
-            positions[i] += delta * CollideBox.SPEED;
+            positions[i] += delta * CollideBox.SPEED * CollideBoxManager.SPEED_MULTIPLIER;
             if(positions[i] < smallest) smallest = positions[i];
         }
 

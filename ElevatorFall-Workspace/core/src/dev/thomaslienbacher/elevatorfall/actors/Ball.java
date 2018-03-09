@@ -20,7 +20,7 @@ public class Ball extends PhysicsActor {
 
     public static final String USERDATA = "BALL";
     public static final float START_Y = Game.HEIGHT / 2 + 400.0f;
-    private static final float THRUST = 2800.0f;
+    private static final float THRUST = 1000.0f;
 
     private Sprite sprite;
     private HashMap<Integer, Vector2> pointers;
@@ -39,8 +39,8 @@ public class Ball extends PhysicsActor {
     @Override
     public void update(float delta) {
         for(Vector2 v : pointers.values()){
-            if(v.x < Game.WIDTH / 2)    body.applyImpulse(new Vector2(-THRUST, 0));
-            else                        body.applyImpulse(new Vector2(THRUST, 0));
+            if(v.x < Game.WIDTH / 2)    body.applyImpulse(new Vector2(-THRUST * CollideBoxManager.SPEED_MULTIPLIER, 0));
+            else                        body.applyImpulse(new Vector2(THRUST * CollideBoxManager.SPEED_MULTIPLIER, 0));
         }
     }
 
