@@ -1,5 +1,6 @@
 package dev.thomaslienbacher.elevatorfall.scene;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -119,6 +120,7 @@ public class GameScene extends Scene {
 
 	@Override
 	public boolean keyDown(int keycode) {
+		if(keycode == Input.Keys.BACK || keycode == Input.Keys.BACKSPACE) Game.getPauseScene().switchTo();
 
 		return false;
 	}
