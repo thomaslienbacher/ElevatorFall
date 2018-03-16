@@ -18,6 +18,7 @@ import dev.thomaslienbacher.elevatorfall.assets.FontManager;
 import dev.thomaslienbacher.elevatorfall.scene.GameScene;
 import dev.thomaslienbacher.elevatorfall.scene.GameStates;
 import dev.thomaslienbacher.elevatorfall.scene.MenuScene;
+import dev.thomaslienbacher.elevatorfall.scene.PauseScene;
 import dev.thomaslienbacher.elevatorfall.scene.StartupScene;
 
 
@@ -50,12 +51,15 @@ public class Game extends ApplicationAdapter {
 	private static StartupScene startupScene;
 	private static MenuScene menuScene;
 	private static GameScene gameScene;
+	private static PauseScene pauseScene;
 
 	//debug
 	public final static boolean DEBUG = false;
 
 	@Override
 	public void create () {
+		Gdx.input.setCatchBackKey(true);
+
 		gameState = GameStates.STARTUP;
 		firstFrame = true;
 		highscore = 0;
@@ -95,27 +99,35 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		cam.update();
-		batch.setProjectionMatrix(cam.combined);
 		batch.begin();
 
 		if(gameState == GameStates.STARTUP){
+			batch.setProjectionMatrix(cam.combined);
 			startupScene.render(batch);
 		}
 
 		if(gameState == GameStates.MENU){
+			batch.setProjectionMatrix(cam.combined);
 			menuScene.render(batch);
 
 			batch.setProjectionMatrix(guiCam.combined);
 			menuScene.renderGUI(batch);
-			batch.setProjectionMatrix(cam.combined);
 		}
 
 		if(gameState == GameStates.GAME){
+			batch.setProjectionMatrix(cam.combined);
 			gameScene.render(batch);
 
 			batch.setProjectionMatrix(guiCam.combined);
 			gameScene.renderGUI(batch);
+		}
+
+		if(gameState == GameStates.PAUSE){
 			batch.setProjectionMatrix(cam.combined);
+			pauseScene.render(batch);
+
+			batch.setProjectionMatrix(guiCam.combined);
+			pauseScene.renderGUI(batch);
 		}
 
 		batch.end();
@@ -144,11 +156,13 @@ public class Game extends ApplicationAdapter {
 			//scenes
 			menuScene = new MenuScene(GameStates.MENU);
 			gameScene = new GameScene(GameStates.GAME);
+			pauseScene = new PauseScene(GameStates.PAUSE, gameScene);
 
 			//load all assets
 			FontManager.loadFonts();
 			menuScene.loadAssets(assetManager);
 			gameScene.loadAssets(assetManager);
+			pauseScene.loadAssets(assetManager);
 
 			//load prefs
 			preferences = Gdx.app.getPreferences(PREFERENCES);
@@ -166,11 +180,13 @@ public class Game extends ApplicationAdapter {
 
 				menuScene.create(assetManager);
 				gameScene.create(assetManager);
+				pauseScene.create(assetManager);
 			}
 		}
 
 		if(gameState == GameStates.MENU) menuScene.update(delta);
 		if(gameState == GameStates.GAME) gameScene.update(delta);
+		if(gameState == GameStates.PAUSE) pauseScene.update(delta);
 
 		//debug
 		if(DEBUG) {
@@ -182,6 +198,7 @@ public class Game extends ApplicationAdapter {
 	public void dispose () {
 		menuScene.dispose();
 		gameScene.dispose();
+		pauseScene.dispose();
 
 		batch.dispose();
 		FontManager.dispose();
@@ -243,6 +260,10 @@ public class Game extends ApplicationAdapter {
 
 	public static GameScene getGameScene() {
 		return gameScene;
+	}
+
+	public static PauseScene getPauseScene() {
+		return pauseScene;
 	}
 
 	public static void setGameState(GameStates gameState) {
