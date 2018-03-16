@@ -125,12 +125,12 @@ public class Utils {
         //final float[] kernel = {0.06136f, 0.24477f, 0.38774f, 0.24477f, 0.06136f};
         final float[] kernel = {0.035822f, 0.05879f, 0.086425f, 0.113806f, 0.13424f, 0.141836f, 0.13424f, 0.113806f, 0.086425f, 0.05879f, 0.035822f};
         final int kw = kernel.length / 2;
-        Color tmp;
 
         //horizontal blur
         for(int x = 0; x < pixmap.getWidth(); x++) {
             for(int y = 0; y < pixmap.getHeight(); y++) {
                 Color c = new Color();
+                Color tmp;
 
                 for(int k = -kw; k < kw; k++) {
                     tmp = pixels[MathUtils.clamp(x + k, 0, pixmap.getWidth()-1)][y];
@@ -147,6 +147,7 @@ public class Utils {
         for(int x = 0; x < pixmap.getWidth(); x++) {
             for(int y = 0; y < pixmap.getHeight(); y++) {
                 Color c = new Color();
+                Color tmp;
 
                 for(int k = -kw; k < kw; k++) {
                     tmp = horiPixels[x][MathUtils.clamp(y + k, 0, pixmap.getHeight()-1)];

@@ -44,8 +44,8 @@ public class PauseScene extends Scene {
 
     @Override
     public void create(AssetManager assetManager) {
-        int w = Game.WIDTH / 24;
-        int h = Game.HEIGHT / 24;
+        int w = Game.WIDTH;
+        int h = Game.HEIGHT;
 
         this.frameBuffer = new FrameBuffer(Pixmap.Format.RGB565, w, h, false);
     }
