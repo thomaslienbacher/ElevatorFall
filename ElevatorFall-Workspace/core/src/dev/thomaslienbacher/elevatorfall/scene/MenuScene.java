@@ -46,7 +46,7 @@ public class MenuScene extends Scene {
 
 	@Override
 	public void render(SpriteBatch batch) {
-		FontManager.get(100).render(batch, "Highscore: " + Game.getHighscore(), 10, Game.HEIGHT / 2, Color.BLACK);
+        FontManager.get(80).renderCentered(batch, "Highscore: " + Game.getHighscore(), Game.WIDTH / 2, 1300, Color.BLACK);
 	}
 	
 	@Override

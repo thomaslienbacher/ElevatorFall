@@ -23,7 +23,6 @@ import dev.thomaslienbacher.elevatorfall.scene.StartupScene;
 
 
 /**
- * Logo only shows for 0.1 seconds because of easier development change to 3 seconds when shipping
  * 
  * @author Thomas Lienbacher
  */
