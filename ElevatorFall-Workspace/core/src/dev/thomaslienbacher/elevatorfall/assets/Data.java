@@ -32,5 +32,5 @@ public class Data {
     public static final String BACKGROUND_TEXTURE = "actors/background.png";
 
     //fonts
-    public static final String FONT = "fonts/DroidSansMono.ttf";
+    public static final String FONT = "fonts/NunitoSans-Regular.ttf";
 }

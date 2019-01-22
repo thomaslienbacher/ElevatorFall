@@ -35,7 +35,7 @@ public class CollideBoxManager {
         spawnPositions = new float[SPAWN_POSITIONS];
 
         for(int i = 0; i < spawnPositions.length; i++) {
-            spawnPositions[i] = Math.round((float)i * ((float)(Game.WIDTH - collideBoxTex.getWidth()) / (float)(SPAWN_POSITIONS - 1)));
+            spawnPositions[i] = Math.round((float) i * ((float) (Game.WIDTH - collideBoxTex.getWidth()) / (float) (SPAWN_POSITIONS - 1)));
         }
     }
 
@@ -64,7 +64,7 @@ public class CollideBoxManager {
         for(CollideBox c : collideBoxes) c.render(batch);
     }
 
-    private void spawn(){
+    private void spawn() {
         int pos = (int) Math.floor(Math.random() * spawnPositions.length);
         while(lastPos == pos) pos = (int) Math.floor(Math.random() * spawnPositions.length);
         lastPos = pos;
@@ -73,7 +73,7 @@ public class CollideBoxManager {
         collideBoxes.add(cb);
     }
 
-    public void reset(){
+    public void reset() {
         for(CollideBox c : collideBoxes) space.destroyBody(c.body);
 
         collideBoxes.clear();

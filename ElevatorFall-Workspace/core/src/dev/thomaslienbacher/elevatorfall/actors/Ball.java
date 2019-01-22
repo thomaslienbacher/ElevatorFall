@@ -25,7 +25,7 @@ public class Ball extends PhysicsActor {
     private Sprite sprite;
     private HashMap<Integer, Vector2> pointers;
 
-    public Ball(PhysicsSpace space, Texture tex){
+    public Ball(PhysicsSpace space, Texture tex) {
         super(false, USERDATA);
         Utils.setLinearFilter(tex);
         this.sprite = new Sprite(tex);
@@ -38,9 +38,9 @@ public class Ball extends PhysicsActor {
 
     @Override
     public void update(float delta) {
-        for(Vector2 v : pointers.values()){
-            if(v.x < Game.WIDTH / 2)    body.applyImpulse(new Vector2(-THRUST * CollideBoxManager.SPEED_MULTIPLIER, 0));
-            else                        body.applyImpulse(new Vector2(THRUST * CollideBoxManager.SPEED_MULTIPLIER, 0));
+        for(Vector2 v : pointers.values()) {
+            if(v.x < Game.WIDTH / 2) body.applyImpulse(new Vector2(-THRUST * CollideBoxManager.SPEED_MULTIPLIER, 0));
+            else body.applyImpulse(new Vector2(THRUST * CollideBoxManager.SPEED_MULTIPLIER, 0));
         }
     }
 
@@ -53,7 +53,7 @@ public class Ball extends PhysicsActor {
         sprite.draw(batch);
     }
 
-    public void reset(){
+    public void reset() {
         body.setLinearVelocity(Vector2.Zero);
         body.setPositionPxl(new Vector2(Game.WIDTH / 2, START_Y + sprite.getWidth() / 2));
         pointers.clear();

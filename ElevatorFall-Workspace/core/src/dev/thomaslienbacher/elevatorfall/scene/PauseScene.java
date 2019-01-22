@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 import dev.thomaslienbacher.elevatorfall.Game;
 import dev.thomaslienbacher.elevatorfall.assets.FontManager;
+import dev.thomaslienbacher.elevatorfall.utils.Blurring;
 import dev.thomaslienbacher.elevatorfall.utils.Utils;
 
 /**
@@ -44,8 +45,8 @@ public class PauseScene extends Scene {
 
     @Override
     public void create(AssetManager assetManager) {
-        int w = Game.WIDTH;
-        int h = Game.HEIGHT;
+        int w = Game.WIDTH / 32;
+        int h = Game.HEIGHT / 32;
 
         this.frameBuffer = new FrameBuffer(Pixmap.Format.RGB565, w, h, false);
     }
@@ -64,7 +65,7 @@ public class PauseScene extends Scene {
             frameBuffer.end();
 
             Pixmap pixmap = Utils.getPixmapFromFramebuffer(frameBuffer);
-            blurredTexture = Utils.blurTexture(pixmap);
+            blurredTexture = Blurring.blurTexture(pixmap);
             pixmap.dispose();
 
             Utils.setLinearFilter(blurredTexture);

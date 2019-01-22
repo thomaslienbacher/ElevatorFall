@@ -6,7 +6,7 @@ package dev.thomaslienbacher.elevatorfall.utils;
 public abstract class MethodContainer {
     public Object[] refs;
 
-    public MethodContainer(Object... refs){
+    public MethodContainer(Object... refs) {
         this.refs = refs;
     }
 

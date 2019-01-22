@@ -2,11 +2,9 @@ package dev.thomaslienbacher.elevatorfall.gui;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
-import dev.thomaslienbacher.elevatorfall.utils.Utils;
 
 /**
  * @author Thomas Lienbacher
@@ -27,7 +25,7 @@ public class TextButton extends Button {
     public void render(SpriteBatch batch) {
         super.render(batch);
 
-        if(!text.equalsIgnoreCase("")){
+        if(!text.equalsIgnoreCase("")) {
             font.renderCentered(batch, text, position.x + width / 2, position.y + height / 2, fontColor);
         }
     }

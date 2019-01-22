@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+
 import dev.thomaslienbacher.elevatorfall.gui.Font;
 
 /**
@@ -25,7 +26,7 @@ public class FontManager {
         font = load(generator, BASE_SIZE);
     }
 
-    private static BitmapFont load(FreeTypeFontGenerator generator, final int size){
+    private static BitmapFont load(FreeTypeFontGenerator generator, final int size) {
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
         parameter.genMipMaps = true;
         parameter.minFilter = Texture.TextureFilter.Linear;
@@ -35,8 +36,8 @@ public class FontManager {
         return generator.generateFont(parameter);
     }
 
-    public static Font get(int size){
-        return new Font(font, (float)size / (float)BASE_SIZE);
+    public static Font get(int size) {
+        return new Font(font, (float) size / (float) BASE_SIZE);
     }
 
     public static void dispose() {

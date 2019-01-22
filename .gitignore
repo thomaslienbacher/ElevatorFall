@@ -22,3 +22,6 @@
 hs_err_pid*
 *.hprof
 *.lnk
+
+# Notepad++ Backup Files
+*.bak
