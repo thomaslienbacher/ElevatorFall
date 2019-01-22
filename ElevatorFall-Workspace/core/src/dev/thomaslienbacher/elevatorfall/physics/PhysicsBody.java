@@ -1,7 +1,14 @@
 package dev.thomaslienbacher.elevatorfall.physics;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+
 import dev.thomaslienbacher.elevatorfall.assets.Data;
 import dev.thomaslienbacher.elevatorfall.utils.Utils;
 
@@ -13,7 +20,7 @@ public class PhysicsBody {
     private boolean canRotate = false;
     private String userdata;
 
-    public PhysicsBody(){
+    public PhysicsBody() {
         this(false, "");
     }
 
@@ -22,7 +29,7 @@ public class PhysicsBody {
         this.userdata = userdata;
     }
 
-    private void init(PhysicsSpace space, BodyDef.BodyType type, Vector2 position){
+    private void init(PhysicsSpace space, BodyDef.BodyType type, Vector2 position) {
         if(body != null) return;
 
         BodyDef def = new BodyDef();
@@ -33,7 +40,7 @@ public class PhysicsBody {
         body.setTransform(position, 0);
     }
 
-    public void initAsBox(PhysicsSpace space, BodyDef.BodyType type, Vector2 position, float friction, float width, float height){
+    public void initAsBox(PhysicsSpace space, BodyDef.BodyType type, Vector2 position, float friction, float width, float height) {
         position.add(width / 2, height / 2);
         position.scl(Data.PXL_2_MTR);
         width *= Data.PXL_2_MTR;
@@ -54,7 +61,7 @@ public class PhysicsBody {
         shape.dispose();
     }
 
-    public void initAsCircle(PhysicsSpace space, BodyDef.BodyType type, Vector2 position, float friction, float radius){
+    public void initAsCircle(PhysicsSpace space, BodyDef.BodyType type, Vector2 position, float friction, float radius) {
         position.scl(Data.PXL_2_MTR);
         radius *= Data.PXL_2_MTR;
 
@@ -73,7 +80,7 @@ public class PhysicsBody {
         shape.dispose();
     }
 
-    public void initAsPolygon(PhysicsSpace space, BodyDef.BodyType type, Vector2 position, float friction, Vector2[] vertices){
+    public void initAsPolygon(PhysicsSpace space, BodyDef.BodyType type, Vector2 position, float friction, Vector2[] vertices) {
         position.scl(Data.PXL_2_MTR);
         for(Vector2 v : vertices) v.scl(Data.PXL_2_MTR);
 
@@ -92,7 +99,7 @@ public class PhysicsBody {
         shape.dispose();
     }
 
-    public void initAsEdge(PhysicsSpace space, BodyDef.BodyType type, Vector2 position, float friction, Vector2 start, Vector2 end){
+    public void initAsEdge(PhysicsSpace space, BodyDef.BodyType type, Vector2 position, float friction, Vector2 start, Vector2 end) {
         position.scl(Data.PXL_2_MTR);
         start.scl(Data.PXL_2_MTR);
         end.scl(Data.PXL_2_MTR);
@@ -112,7 +119,7 @@ public class PhysicsBody {
         shape.dispose();
     }
 
-    public void addSensor(Vector2 start, Vector2 end){
+    public void addSensor(Vector2 start, Vector2 end) {
         start.scl(Data.PXL_2_MTR);
         end.scl(Data.PXL_2_MTR);
         EdgeShape shape = new EdgeShape();
@@ -131,18 +138,18 @@ public class PhysicsBody {
      *
      * @param impulse
      */
-    public void applyImpulse(Vector2 impulse){
+    public void applyImpulse(Vector2 impulse) {
         impulse.scl(Data.PXL_2_MTR);
         body.applyLinearImpulse(impulse, Vector2.Zero, true);
     }
 
-    public void applyImpulse(float xi, float yi){
+    public void applyImpulse(float xi, float yi) {
         Vector2 impulse = new Vector2(xi, yi);
         impulse.scl(Data.PXL_2_MTR);
         body.applyLinearImpulse(impulse, Vector2.Zero, true);
     }
 
-    public void applyImpulse(Vector2 impulse, Vector2 relative){
+    public void applyImpulse(Vector2 impulse, Vector2 relative) {
         impulse.scl(Data.PXL_2_MTR);
         relative.scl(Data.PXL_2_MTR);
         body.applyLinearImpulse(impulse, relative, true);
@@ -153,43 +160,43 @@ public class PhysicsBody {
      *
      * @param force
      */
-    public void applyForce(Vector2 force){
+    public void applyForce(Vector2 force) {
         force.scl(Data.PXL_2_MTR);
         body.applyForceToCenter(force, true);
     }
 
-    public void applyForce(float xf, float yf){
+    public void applyForce(float xf, float yf) {
         Vector2 force = new Vector2(xf, yf);
         force.scl(Data.PXL_2_MTR);
         body.applyForceToCenter(force, true);
     }
 
-    public void applyForce(Vector2 force, Vector2 relative){
+    public void applyForce(Vector2 force, Vector2 relative) {
         force.scl(Data.PXL_2_MTR);
         relative.scl(Data.PXL_2_MTR);
         body.applyForce(force, relative, true);
     }
 
-    public void setPositionPxl(Vector2 v){
+    public void setPositionPxl(Vector2 v) {
         v.scl(Data.PXL_2_MTR);
         body.setTransform(v, getAngle() * Utils.DEG_2_RAD);
     }
 
-    public void setAngle(float degrees){
+    public void setAngle(float degrees) {
         body.setTransform(body.getPosition(), degrees * Utils.DEG_2_RAD);
     }
 
-    public void setLinearVelocity(Vector2 vel){
+    public void setLinearVelocity(Vector2 vel) {
         vel.scl(Data.PXL_2_MTR);
         body.setLinearVelocity(vel);
     }
 
-    public void setAngularVelocity(float vel){
+    public void setAngularVelocity(float vel) {
         vel *= Data.PXL_2_MTR;
         body.setAngularVelocity(vel);
     }
 
-    public void setRestitution(float restitution){
+    public void setRestitution(float restitution) {
         body.getFixtureList().get(0).setRestitution(restitution);
     }
 
@@ -197,7 +204,7 @@ public class PhysicsBody {
         return body;
     }
 
-    public Vector2 getPositionPxl(){
+    public Vector2 getPositionPxl() {
         return body.getPosition().cpy().scl(Data.MTR_2_PXL);
     }
 

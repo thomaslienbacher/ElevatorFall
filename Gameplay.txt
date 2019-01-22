@@ -1,2 +1,0 @@
-If you press Play in the Menuscene you will be taken to the GameScene
-If you die in the Gamescene you will be taken to the Menuscene

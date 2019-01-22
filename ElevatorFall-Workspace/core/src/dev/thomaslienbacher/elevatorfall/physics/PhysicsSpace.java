@@ -20,7 +20,7 @@ public class PhysicsSpace {
         world.setContactListener(contactListener);
     }
 
-    public void step(float delta, int velIter, int posIter){
+    public void step(float delta, int velIter, int posIter) {
         world.step(delta, velIter, posIter);
     }
 
@@ -32,7 +32,7 @@ public class PhysicsSpace {
         world.destroyBody(body.get());
     }
 
-    public void dispose(){
+    public void dispose() {
         Array<Body> bodies = new Array<Body>(world.getBodyCount());
         world.getBodies(bodies);
 

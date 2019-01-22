@@ -1,6 +1,5 @@
 package dev.thomaslienbacher.elevatorfall.utils;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,7 +11,7 @@ import com.badlogic.gdx.math.MathUtils;
  * @author Thomas Lienbacher
  */
 public class Blurring {
-    
+
     private static final int NUM_THREADS = 4;
 
     private static abstract class PrepareRunnable implements Runnable {
@@ -28,7 +27,7 @@ public class Blurring {
             this.xend = xend;
         }
     }
-    
+
     private static abstract class HorizontalRunnable implements Runnable {
         public Color[][] pixels;
         public Color[][] horiPixels;
@@ -56,31 +55,31 @@ public class Blurring {
             this.xend = xend;
         }
     }
-    
+
     public static Texture blurTexture(Pixmap pixmap) {
         //final float[] kernel = {0.06136f, 0.24477f, 0.38774f, 0.24477f, 0.06136f};
         final float[] kernel = {0.035822f, 0.05879f, 0.086425f, 0.113806f, 0.13424f, 0.141836f, 0.13424f, 0.113806f, 0.086425f, 0.05879f, 0.035822f};
         final int kw = kernel.length / 2;
         final int HEIGHT = pixmap.getHeight();
         final int WIDTH = pixmap.getWidth();
-        final int[] offsets = new int[NUM_THREADS+1];
+        final int[] offsets = new int[NUM_THREADS + 1];
 
         int left = pixmap.getWidth();
         for(int i = 0; i < NUM_THREADS; i++) {
             offsets[i] = (WIDTH / NUM_THREADS) * i;
             left -= WIDTH / NUM_THREADS;
         }
-        offsets[NUM_THREADS-1] += left;
+        offsets[NUM_THREADS - 1] += left;
         offsets[NUM_THREADS] = WIDTH;
 
         Color[][] pixels = new Color[WIDTH][HEIGHT];
         Color[][] horiPixels = new Color[WIDTH][HEIGHT];
-        
+
 
         //fill in pixels
         Thread[] prepareThreads = new Thread[NUM_THREADS];
         for(int i = 0; i < NUM_THREADS; i++) {
-            prepareThreads[i] = new Thread(new PrepareRunnable(pixmap, pixels, offsets[i], offsets[i+1]) {
+            prepareThreads[i] = new Thread(new PrepareRunnable(pixmap, pixels, offsets[i], offsets[i + 1]) {
                 @Override
                 public void run() {
                     for(int x = this.xstart; x < this.xend; x++) {
@@ -104,7 +103,7 @@ public class Blurring {
         //horizontal blur
         Thread[] horizontalThreads = new Thread[NUM_THREADS];
         for(int i = 0; i < NUM_THREADS; i++) {
-            horizontalThreads[i] = new Thread(new HorizontalRunnable(pixels, horiPixels, offsets[i], offsets[i+1]) {
+            horizontalThreads[i] = new Thread(new HorizontalRunnable(pixels, horiPixels, offsets[i], offsets[i + 1]) {
                 @Override
                 public void run() {
                     for(int x = this.xstart; x < this.xend; x++) {
@@ -113,10 +112,10 @@ public class Blurring {
                             Color tmp;
 
                             for(int k = -kw; k < kw; k++) {
-                                tmp = this.pixels[MathUtils.clamp(x + k, 0, WIDTH-1)][y];
-                                c.r += tmp.r * kernel[k+kw];
-                                c.g += tmp.g * kernel[k+kw];
-                                c.b += tmp.b * kernel[k+kw];
+                                tmp = this.pixels[MathUtils.clamp(x + k, 0, WIDTH - 1)][y];
+                                c.r += tmp.r * kernel[k + kw];
+                                c.g += tmp.g * kernel[k + kw];
+                                c.b += tmp.b * kernel[k + kw];
                             }
 
                             horiPixels[x][y] = c;
@@ -138,7 +137,7 @@ public class Blurring {
         //vertical blur
         Thread[] verticalThreads = new Thread[NUM_THREADS];
         for(int i = 0; i < NUM_THREADS; i++) {
-            verticalThreads[i] = new Thread(new VerticalRunnable(horiPixels, pixmap, offsets[i], offsets[i+1]) {
+            verticalThreads[i] = new Thread(new VerticalRunnable(horiPixels, pixmap, offsets[i], offsets[i + 1]) {
                 @Override
                 public void run() {
                     for(int x = this.xstart; x < this.xend; x++) {
@@ -147,10 +146,10 @@ public class Blurring {
                             Color tmp;
 
                             for(int k = -kw; k < kw; k++) {
-                                tmp = horiPixels[x][MathUtils.clamp(y + k, 0, HEIGHT-1)];
-                                c.r += tmp.r * kernel[k+kw];
-                                c.g += tmp.g * kernel[k+kw];
-                                c.b += tmp.b * kernel[k+kw];
+                                tmp = horiPixels[x][MathUtils.clamp(y + k, 0, HEIGHT - 1)];
+                                c.r += tmp.r * kernel[k + kw];
+                                c.g += tmp.g * kernel[k + kw];
+                                c.b += tmp.b * kernel[k + kw];
                             }
 
                             c.a = 1.0f;
@@ -172,7 +171,7 @@ public class Blurring {
 
         return new Texture(pixmap);
     }
-    
+
     //old function but super slow
     /*private static Color blurredColor(int x, int y, Color[][] pixels) {
         float[][] kernel = {

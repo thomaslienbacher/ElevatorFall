@@ -1,12 +1,10 @@
 package dev.thomaslienbacher.elevatorfall.actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.utils.Pool;
 
 import dev.thomaslienbacher.elevatorfall.assets.Data;
 import dev.thomaslienbacher.elevatorfall.physics.PhysicsSpace;
@@ -22,7 +20,7 @@ public class CollideBox extends PhysicsActor {
 
     private Sprite sprite;
 
-    public CollideBox(PhysicsSpace space, Texture tex, float x){
+    public CollideBox(PhysicsSpace space, Texture tex, float x) {
         super(false, USERDATA);
         Utils.setLinearFilter(tex);
         this.sprite = new Sprite(tex);

@@ -6,89 +6,89 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * @author Thomas Lienbacher
  */
-public abstract class Actor{
+public abstract class Actor {
 
-	protected float width = 0;
-	protected float height = 0;
-	protected float rotation = 0;
-	protected float scale = 1;
-	protected Vector2 position = new Vector2();
+    protected float width = 0;
+    protected float height = 0;
+    protected float rotation = 0;
+    protected float scale = 1;
+    protected Vector2 position = new Vector2();
 
-	public Actor(){	}
+    public Actor() {}
 
-	public abstract void update(float delta);
+    public abstract void update(float delta);
 
-	public void setPosition(float x, float y){
-		this.position.x = x;
-		this.position.y = y;
-	}
+    public void setPosition(float x, float y) {
+        this.position.x = x;
+        this.position.y = y;
+    }
 
-	public void setPosition(Vector2 v){
-		this.position.x = v.x;
-		this.position.y = v.y;
-	}
+    public void setPosition(Vector2 v) {
+        this.position.x = v.x;
+        this.position.y = v.y;
+    }
 
-	public void setPositionX(float x){
-		this.position.x = x;
-	}
+    public void setPositionX(float x) {
+        this.position.x = x;
+    }
 
-	public void setPositionY(float y){
-		this.position.y = y;
-	}
+    public void setPositionY(float y) {
+        this.position.y = y;
+    }
 
-	public void translate(float x, float y){
-		this.position.x += x;
-		this.position.y += y;
-	}
+    public void translate(float x, float y) {
+        this.position.x += x;
+        this.position.y += y;
+    }
 
-	public void translate(Vector2 v){
-		this.position.x += v.x;
-		this.position.y += v.y;
-	}
+    public void translate(Vector2 v) {
+        this.position.x += v.x;
+        this.position.y += v.y;
+    }
 
-	public void translateX(float x){
-		this.position.x += x;
-	}
+    public void translateX(float x) {
+        this.position.x += x;
+    }
 
-	public void translateY(float y){
-		this.position.y += y;
-	}
-	
-	public void setRotation(float degrees){
-		this.rotation = degrees;
-	}
+    public void translateY(float y) {
+        this.position.y += y;
+    }
 
-	public void rotate(float degrees){
-		this.rotation += degrees;
-	}
+    public void setRotation(float degrees) {
+        this.rotation = degrees;
+    }
 
-	public void setScale(float scale){
-		this.scale = scale;
-	}
+    public void rotate(float degrees) {
+        this.rotation += degrees;
+    }
 
-	public void scaleMul(float mul){
-		this.scale *= scale;
-	}
-	
-	public abstract void render(SpriteBatch batch);
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
 
-	public float getWidth() {
-		return width;
-	}
+    public void scaleMul(float mul) {
+        this.scale *= scale;
+    }
 
-	public float getHeight() {
-		return height;
-	}
+    public abstract void render(SpriteBatch batch);
 
-	public float getRotation() {
-		return rotation;
-	}
+    public float getWidth() {
+        return width;
+    }
 
-	public float getScale() {
-		return scale;
-	}
+    public float getHeight() {
+        return height;
+    }
 
-	public Vector2 getPosition() {
-		return position;
-	}
+    public float getRotation() {
+        return rotation;
+    }
+
+    public float getScale() {
+        return scale;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
 }
